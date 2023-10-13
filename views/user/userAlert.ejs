@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SweetAlert Message</title>
+    <!-- Include the SweetAlert library -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <script>
+        // Replace 'yourMessageVariable' with the actual message variable you want to display
+        const yourMessageVariable = "<%= message %>"
+
+        // Display the SweetAlert message
+        Swal.fire({
+            icon: 'info', // You can customize the icon (e.g., 'success', 'error', 'info')
+            title: 'Message',
+            text: yourMessageVariable,
+            confirmButtonText: 'OK', // Label for the OK button
+        }).then((result) => {
+            // if (result.isConfirmed) {
+            //     // Redirect or perform any action after clicking OK
+            //     window.location.href = 'back'; // Replace with the desired URL
+            // }
+            if (result.isConfirmed) {
+                // Go back to the previous page
+                window.history.back();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+
+<%- include('../layouts/adminheader.ejs') -%>
+
+
+
+
+<div class="text-center center-div container-fluid p-5" ">
+    <h1>ADD category</h1>
+    <div class="container  w-50 border py-5">
+        <form action="" method="post">
+            <div class="d-flex">
+                <div class="flex-grow-1">
+                    <div class="form-group">
+                    <label for="formGroupExampleInput">Category</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput" name="category" placeholder="">
+                    </div>
+                    <div class="form-group">
+                    <label for="formGroupExampleInput2">Description</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput2" name="description" placeholder="">
+                    </div>
+                </div>
+            </div>    
+                    <br>
+            <button type="submit" class="btn btn-success">Add Category</button>
+          </form>
+    </div>
+</div>
+<%- include('../layouts/footer.ejs') -%>
+

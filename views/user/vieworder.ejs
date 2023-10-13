@@ -1,0 +1,306 @@
+
+
+<%- include('../layouts/userheader.ejs') -%>
+<div class="container">
+    <div class="row">
+        <section class="h-100" style="background-color: #c8d5cf;">
+            <div class="container h-100 py-5">
+
+<div class="content">  
+    <div class="col py-3 d-flex justify-content-center mt-2">
+        <div class="col-xl-8">
+                    <!-- Order details card-->
+                    <div class="card mb-4 ">
+                        <div class="card-header">Order details</div>
+                        <div class="card-body">
+    
+                            <table id="orderdetails" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+    
+                                    <input type="hidden" value="<%= username %>" id="username">
+                                    <input type="text" value="<%= JSON.stringify(products) %>" id="products">
+                                    <input type="hidden" value="<%= order.product[0] %>" name="productdetails" id="productdetails">
+                                    <% for(let i=0;i< order.product.length;++i)
+                                          {
+                                     %>   
+                                    <tr>
+                                        <td scope="row"><%= order.product[i].pro_id.name %></td>
+                                        <td><%= order.product[i].price %></td>
+                                        <td><%= order.product[i].qty %></td>
+                                        <td><img style="width: 50px; height: auto;" src="/static/productimages/<%= order.product[i].pro_id.image[0] %>"
+                                                alt="product image">
+                                        </td>
+                                 </tr>                  
+                                      <% 
+                                      }
+                                  %>
+                                </tbody>
+                            </table>
+    
+                            <div class="d-flex justify-content-between border mt-5 p-5" style="color: #000;">
+                                <div class="mt-3 ">
+                                    <p class="mb-2">Total amount : ₹ <strong><%= order.amount %></strong></p>
+                              
+                                    <p class="mb-2">Payment method: <%= order.paymentmethod %></p>
+                                    <p class="mb-2">Order status : <%= order.orderstatus %></p>
+                                     
+                                      <% const dateString = order.date 
+                                      
+                                        const date = new Date(dateString)
+                                        const day = date.getDate().toString().padStart(2, '0')
+                                        const month = (date.getMonth() + 1).toString().padStart(2, '0')
+                                        const year = date.getFullYear()
+                                        const formattedDate = `${day}-${month}-${year}`
+                                        %>
+                                        
+                                        <p class="mb-2" >Order Date :<span id="date"> <%= formattedDate %></span></p> 
+                                
+                                </div>
+    
+                                <div class="">
+                                    <h5 class="border-bottom mb-3">Delivery address</h5>
+                                    <p id="add" value="<%= order.address %>"><%= order.address %></p>
+                                </div>
+
+                                <div>
+                                <% 
+                                if(order.orderstatus=='Placed')
+                                {
+
+                                %>
+                                <div class="">
+                                    <input type="hidden" value="<%= order._id %>" id="orderid" name="orderid">
+                                    <a href="/cancel-order?orderid=<%= order._id %>" onclick="cancelOrder(event)" 
+                                        
+                                        type="button" class=" btn btn-success">Cancel Order </a>
+                                </div>
+                                <% 
+                                }
+                                %>
+                    
+                                <% 
+                                if(order.orderstatus=='Delivered')
+                                {
+                                %>
+                                <div class="">
+                                    <input type="hidden" value="<%= order._id %>" id="orderid" name="orderid">
+                                    <a href="/cancel-order?orderid=<%= order._id %>" onclick="cancelOrder(event)" 
+                                        
+                                        type="button" class=" btn btn-success">Return Order </a>
+                                </div>
+                                <% 
+                                }
+                                %>
+                    <!-- trial begin -->
+
+                    <div>
+                           <% 
+                    if(order.orderstatus=='Delivered' || order.orderstatus=='Placed')
+                    {
+                    %>
+                    <div class=" mt-5">
+                        <input type="hidden" value="<%= order._id %>" id="orderid" name="orderid">
+                        <a href=""                            
+                            type="button" class=" btn btn-success" onclick="downloadinvoice('<%= order._id %>')">Download Invoice</a>
+  
+                            <a          
+                            type="button" class=" btn btn-success" onclick="into()">GET Invoice</a>
+
+                            <a href="/in?orderid=<%= order._id %>"                            
+                            type="button" class=" btn btn-success" > Invoice</a>
+  
+  
+                        </div>
+                    <% 
+                    }
+                    %>
+        
+                </div>
+                 </div>
+                    <!-- trial ends -->
+                            </div>
+                        </div>
+                    </div>              
+            <div class="m-l-5  p-r-15 p-b-15">
+                <a href="/view-orders"><button type="button" style=" border-radius: 50px;" class="btn btn-success"><< Back</button></a>
+            </div>
+            </div>
+            </div>                        
+    </div>
+</div>           
+</div>
+</div>
+            <script>
+                function cancelOrder(event){
+                    event.preventDefault();
+                    console.log("in cancel order")
+                    const orderid= document.getElementById('orderid').value
+                    console.log("order id is :",orderid)                 
+                    Swal.fire({
+                        title: 'Bloom Basket',
+                        text: 'Are you sure you want to cancel this order?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: 'Cancel',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = event.target.href;
+                        }
+                    })
+                }
+            </script>
+
+            <script>
+                const downloadinvoice = async(orderid)=>
+                {
+                    console.log("in download invoice")
+                    await fetch(`/invoice?orderid=${orderid}`, {
+                        method: 'GET',
+                        headers: {
+                          'Content-Type': 'application/pdf'
+                        }
+                      })
+                        .then(response => response.blob())
+                        .then(blob => {
+                          // Create a URL for the downloaded file
+                          console.log("just b4 url creation")
+                          const url = URL.createObjectURL(blob);
+                          // Create a link element to trigger the download
+                          console.log("just b4 LINK creation")
+                          const link = document.createElement('a');
+                          link.href = url;
+                          console.log("just b4 INVOICE")
+                          link.download = 'invoice.pdf';
+                          // Trigger the download
+                          link.click();
+                          // Clean up the URL object
+                          URL.revokeObjectURL(url);
+                        })
+                        .catch(error => {
+                          console.error(error);
+                        });   
+                }
+            </script>
+
+            <script>
+
+                function into(){
+                    console.log("1")
+                    console.log("2")
+                    console.log("3")
+                    console.log("5555555555555555555555555555")
+                    console.log("in invoice",)
+
+                    const order= "<%= order %>"
+                    const ad=document.getElementById('add').textContent
+                    const date=document.getElementById('date').textContent
+                    const product=JSON.parse(document.getElementById('products').value)
+                    const username=document.getElementById('username').value
+                
+                    console.log(ad,date,username)
+
+                    console.log("Order : ", order,order.name,order.address)
+                    console.log("PRo",product, product[0].quantity ,product[1].description)
+
+
+
+
+                    var data = {
+                        // Customize enables you to provide your own templates
+                        // Please review the documentation for instructions and examples
+                        "customize": {
+                            //  "template": fs.readFileSync('template.html', 'base64') // Must be base64 encoded html 
+                        },
+                        "images": {
+                            // The logo on top of your invoice
+                            "logo": "https://public.easyinvoice.cloud/img/logo_en_original.png",
+                            // The invoice background
+                            "background": "https://public.easyinvoice.cloud/img/watermark-draft.jpg"
+                        },
+                        // Your own data
+                        "sender": {
+                            "company": "Sample Corp",
+                            "address": "Sample Street 123",
+                            "zip": "1234 AB",
+                            "city": "Sampletown",
+                            "country": "Samplecountry"
+                            //"custom1": "custom value 1",
+                            //"custom2": "custom value 2",
+                            //"custom3": "custom value 3"
+                        },
+                        // Your recipient
+                        "client": {
+                            "company": username,
+                            "address":ad,
+                            "zip": "680001",
+                            "city": "",
+                            "country": "India"
+                            // "custom1": "custom value 1",
+                            // "custom2": "custom value 2",
+                            // "custom3": "custom value 3"
+                        },
+                        "information": {
+                            // Invoice number
+                            "number": "2021.0001",
+                            // Invoice data
+                            "date": date,
+                            // Invoice due date
+                            "due-date": "31-12-2021"
+                        },
+                        // The products you would like to see on your invoice
+                        // Total values are being calculated automatically
+                        products:'product',
+                        // The message you would like to display on the bottom of your invoice
+                        "bottom-notice": "Kindly pay your invoice within 15 days.",
+                        // Settings to customize your invoice
+                        "settings": {
+                            "currency": "INR", // See documentation 'Locales and Currency' for more info. Leave empty for no currency.
+                            // "locale": "nl-NL", // Defaults to en-US, used for number formatting (See documentation 'Locales and Currency')        
+                            // "margin-top": 25, // Defaults to '25'
+                            // "margin-right": 25, // Defaults to '25'
+                            // "margin-left": 25, // Defaults to '25'
+                            // "margin-bottom": 25, // Defaults to '25'
+                            // "format": "A4", // Defaults to A4, options: A3, A4, A5, Legal, Letter, Tabloid
+                            // "height": "1000px", // allowed units: mm, cm, in, px
+                            // "width": "500px", // allowed units: mm, cm, in, px
+                            // "orientation": "landscape", // portrait or landscape, defaults to portrait
+                        },
+                        // Translate your invoice to your preferred language
+                        "translate": {
+                            // "invoice": "FACTUUR",  // Default to 'INVOICE'
+                            // "number": "Nummer", // Defaults to 'Number'
+                            // "date": "Datum", // Default to 'Date'
+                            // "due-date": "Verloopdatum", // Defaults to 'Due Date'
+                            // "subtotal": "Subtotaal", // Defaults to 'Subtotal'
+                            // "products": "Producten", // Defaults to 'Products'
+                            // "quantity": "Aantal", // Default to 'Quantity'
+                            // "price": "Prijs", // Defaults to 'Price'
+                            // "product-total": "Totaal", // Defaults to 'Total'
+                            // "total": "Totaal", // Defaults to 'Total'
+                            // "vat": "btw" // Defaults to 'vat'
+                        },
+                    };
+                    
+                    //Create your invoice! Easy!
+                    easyinvoice.createInvoice(data,function (result) {
+                        //The response will contain a base64 encoded PDF file
+                        easyinvoice.download('myInvoice.pdf', result.pdf);
+                       // console.log('PDF base64 string: ', result.pdf);
+                    });
+
+                    
+                    console.log("invoice last")
+                }
+
+            </script>
+            <%- include('../layouts/footer.ejs') -%>  

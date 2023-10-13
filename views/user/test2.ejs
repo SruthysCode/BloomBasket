@@ -1,0 +1,109 @@
+
+<%- include('../layouts/header.ejs') -%>
+<div class="logo">
+</div>
+<br><br>
+<div >
+  <div class="text-center center-div mt-5" id="login">
+    <div class="container w-45 border py-5 mt-5 align-items-center justify-content-center">
+   
+    
+        <h2>OTP Verification</h2>
+  <p>Please enter the OTP sent to </p>
+
+  <form action="" method="POST">
+    <input type="hidden" name="email" value=" email ">
+    <input type="hidden" name="user_id" value=" user_id ">
+    <input type="text" name="otp" placeholder="Enter OTP" required>
+    <button id="myButton123" style="background-color: rgb(115, 115, 239);" type="submit">Verify OTP</button>
+      
+      
+    
+  </form>
+  <div id="otpButtonContainer" style="display: flex; flex-direction: column; align-items: center; justify-content: center; ">
+  <button id="myButton" style="background-color: rgb(183, 123, 236); display: none; "><a href="/verification">Resend OTP</a></button>
+  </div>
+  <p id="countdown">Time remaining: <span id="timer">60</span> seconds</p>
+</div>
+  <script>
+    let seconds = 60;
+    const countdown = document.getElementById('timer');
+    const button = document.getElementById('myButton');
+    const button1 = document.getElementById('myButton123');
+    const updateTimer = () => {
+      countdown.textContent = seconds;
+      seconds--;
+      if (seconds < 0) {
+        clearInterval(interval);
+        countdown.textContent = 'Time expired';
+        
+        button.style.display = 'block';
+        button1.style.display = 'none';
+        document.getElementById(otpObject.id).textContent = otpObject.otp;
+        otpObject.otp = 0
+        
+      }
+    };
+
+    const interval = setInterval(updateTimer, 1000);
+
+   </script>
+   </div>
+</div>
+</div>
+</div>
+
+
+
+<div class="container">
+  <h2>Dynamic Pills</h2>
+  <ul class="nav nav-pills">
+    <li><a data-toggle="pill" href="#home">Home</a>
+    </li>
+    <li><a data-toggle="pill" href="#menu1">Menu 1</a>
+    </li>
+    <li><a data-toggle="pill" href="#menu2">Menu 2</a>
+    </li>
+    <li><a data-toggle="pill" href="#menu3">Menu 3</a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade">
+      <h3>HOME</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+      <h3>Menu 1</h3>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      <h3>Menu 2</h3>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+    <div id="menu3" class="tab-pane fade">
+      <h3>Menu 3</h3>
+      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    </div>
+  </div>
+</div>
+
+<%- include('../layouts/footer.ejs') -%>
+<!-- 
+  .thumbnail { 
+top:-50px; 
+left:-35px; 
+display:block; 
+z-index:999; 
+cursor: pointer; 
+-webkit-transition-property: all; 
+-webkit-transition-duration: 0.3s; 
+-webkit-transition-timing-function: ease; 
+} 
+
+/*change the number below to scale to the appropriate size*/ 
+.thumbnail:hover { 
+transform: scale(3); 
+
+}
+ -->

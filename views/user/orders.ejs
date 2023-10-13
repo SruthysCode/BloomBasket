@@ -1,0 +1,102 @@
+
+
+<%- include('../layouts/userheader.ejs') -%>
+
+<div class="container shadow p-3 m-5">
+  <div class="row" style="margin: 20px;">
+    <!-- <section class="h-100" style="background-color:#c8d5cf;"> -->
+      <div class="container shadow p-3 mb-5 h-100 py-5">
+          <input type="hidden" value="<%= message %>" id="message">
+      <% 
+            if(order.length>0)          
+             {
+              %>
+        <table class="table align-middle mb-0 bg-white" id="orders">                
+          <thead class="bg-light">
+              <tr>
+                <th>Order</th>
+                <th>Address</th>
+                <th>Status</th>
+                <th>Amount</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody> 
+              <%
+              for(let i=0; i<order.length;++i)
+                { 
+                    %>
+              <tr>
+                <td><%= order[i].date %></td>
+                <td>
+                  <p class="fw-normal mb-1"><%= order[i].address %></p> 
+                </td>
+                <td>
+                    <%= order[i].orderstatus %>
+                </td>
+                <td> &#8377 <%= order[i].amount %>
+
+                </td>
+                  <td>
+                    <!-- View details -->   
+                         <form method="get" action="/view-orderdetails/">
+                         <input type="hidden" name="id" value="<%= order[i]._id %>">
+                         <button type="submit" class="btn btn-success btn-sm btn-rounded">
+                             View Details
+                         </button>
+                     </form>
+                   </td>          
+              <%}%> 
+              </tr>
+            </tbody>
+          </table>
+              <% } 
+               else{ %>
+            <table>
+              <tbody>
+                <tr>
+                    <td>
+                        NO Orders to display
+                    </td>
+                </tr>
+              </tbody>
+            </table>
+                <%} %>
+            
+         
+          <a href="/profile"><p><button type="button" style=" border-radius: 50px;" class="btn btn-success"><< Back</button></p></a>
+     </div>
+    </div>
+  </div>
+</div>
+    
+
+
+
+<script type="text/javascript">
+  $(document).ready( function () {
+    $('#orders').DataTable();
+} );
+
+</script>
+
+  <script>
+
+
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        // Your code to run when the form loads
+       // alert("Form has loaded!");
+        const message= "<%= message %>"
+      if(message)
+      {
+        console.log("Message is there")
+        Swal.fire("Success", message, "success");
+      }
+    });
+
+  </script>
+
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+<%- include('../layouts/footer.ejs') -%>

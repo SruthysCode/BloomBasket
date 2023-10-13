@@ -1,0 +1,129 @@
+<%- include('../layouts/adminheader.ejs') -%>
+
+
+<!-- <h1>Users</h1> -->
+<br>
+
+<div class="container">
+    <div class="row shadow p-3 mb-5 bg-body rounded">
+        <table class="table align-middle table-hover mb-0 bg-white">
+          <a href="/admin/new-user" style="color: white;"><button type="button" style="width:15%;" class="btn btn-success">Add New User</a>
+            <thead class="bg-light">
+
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                
+                <th>Mobile</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <% 
+            if(user.length>0)
+            
+             { for(let i=0; i<user.length;++i){ %>
+            <tbody>
+              <tr>
+                <!-- <td><%= user[i] %></td> -->
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="ms-3">
+                      <p class="fw-bold mb-1"><%= user[i].name %></p>
+                      
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <p class="fw-normal mb-1"><%= user[i].email %></p>
+                  
+                </td>
+                <td><%= user[i].mobile %></td>
+                <td>
+                   <!-- Edit button -->
+                   <form method="get" action="/admin/edit-user/">
+                    <input type="hidden" name="id" value="<%= user[i]._id %>">
+                    <button type="submit" class="btn btn-success btn-sm btn-rounded">
+                        Edit
+                    </button>
+                </form>
+              </td>
+              <td>
+                <!-- Delete button -->
+                <!-- <form method="post" action="/admin/delete-user" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                    <input type="hidden" name="id" value="<%= user[i]._id %>">
+                    <button type="submit" class="btn btn-success btn-sm btn-rounded">
+                        Delete
+                    </button>
+                </form> -->
+
+                <a href="/admin/delete-user?id=<%= user[i]._id %>" onclick="removealert(event)" type="button"
+                  class="btn btn-success btn-sm btn-rounded"> Delete
+
+                  </a>
+              
+            </td>
+            <td>
+              <!-- Block/Unblock  button -->
+              <% if(user[i].blocked) {%>
+                <form method="post" action="/admin/unblock-user">
+                  <input type="hidden" name="id" value="<%= user[i]._id %>">
+                  <button type="submit" class="btn btn-success btn-sm btn-rounded">
+                      UnBlock
+                  </button>
+              </form>
+                <%}
+                else{%>
+              <form method="post" action="/admin/block-user">
+                  <input type="hidden" name="id" value="<%= user[i]._id %>">
+                  <button type="submit" class="btn btn-success btn-sm btn-rounded">
+                      Block
+                  </button>
+              </form>
+              <%}%>
+          </td>
+              </tr>
+              <% }
+            }
+            else
+            { %>
+                <tr>
+                    <td>
+                        NO categories to display
+                    </td>
+                </tr>
+
+                <%}
+                %>
+            </tbody>
+          </table>
+          <a href="/admin/home"><p><button type="button" style=" border-radius: 50px;" class="btn btn-success m-3"><< Back</button></p></a>
+    </div>
+</div>
+
+
+<script>
+
+  function removealert(e)
+  {
+  e.preventDefault();
+
+  // Display a SweetAlert dialog
+ Swal.fire({
+    title: 'Bloom Basket',
+    text: 'Do you want to Delete this User?',
+    icon: 'question',		
+    showCancelButton: true,		
+    confirmButtonText: 'Yes',
+    cancelButtonText: 'No'
+    
+  }).then((result)=>{
+    if (result.isConfirmed) {
+      window.location.href = e.target.href;
+  }
+  })
+}
+
+</script>
+
+
+<%- include('../layouts/footer.ejs') -%>

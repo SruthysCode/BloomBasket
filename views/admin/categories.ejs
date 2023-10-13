@@ -1,0 +1,104 @@
+<%- include('../layouts/adminheader.ejs') -%>
+
+
+<!-- <h1>Categories</h1> -->
+<br>
+
+<div class="container">
+    <div class="row shadow p-3 mb-5 bg-body rounded">
+        <a href="/admin/new-category"><button type="button" style="width:15%;" class="btn btn-success">Add New Category</button></a>
+        <table class="table align-middle table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Category</th>
+                <th scope="col">Description</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% if(category.length>0)
+                {
+                        for(let i=0;i<category.length; ++i)
+                        {%>
+            
+              <tr>
+                <th scope="row"><%= i+1 %></th>
+                <td><%= category[i].name%></td>
+                <td><%=category[i].description%></td>
+                <td>
+                    <!-- Edit button -->
+                    <form method="get" action="/admin/edit-category/">
+                        <input type="hidden" name="id" value="<%= category[i]._id %>">
+                        <button type="submit" class="btn btn-success btn-sm btn-rounded">
+                            Edit
+                        </button>
+                    </form>
+
+                </td>
+                <td>
+                    <!-- Delete button -->
+                    
+                    <a href="/admin/delete-category?id=<%= category[i]._id %>" type="button" class="btn btn-success btn-sm btn-rounded" onclick="removealert(event)"> Delete </a>
+                        <input type="hidden" name="id" value="<%= category[i]._id %>">
+                        <!-- <button >
+                            Delete
+                        </button>
+                    </form> -->
+                </td>
+                <!-- <td>
+                  
+                    <button type="button" class="btn btn-success btn-sm btn-rounded" formaction="admin/edit-category?id=<%=category[i]._id%>">
+                        Edit
+                      </button>
+                      <button type="submit" class="btn btn-success btn-sm btn-rounded" formaction="admin/delete-category?id=<%=category[i]._id%>">
+                          Delete
+                        </button>
+                    
+                </td> -->
+              </tr>
+              <% }
+            }
+            else
+            { %>
+                <tr>
+                    <td>
+                        NO categories to display
+                    </td>
+                </tr>
+
+                <%}
+                %>
+             </tbody>
+          </table>
+          <a href="/admin/home"><p><button type="button" style=" border-radius: 50px;" class="btn btn-success"><< Back</button></p></a>
+    </div>
+</div>
+
+
+<script>
+
+    function removealert(e)
+    {
+    e.preventDefault();
+  
+    // Display a SweetAlert dialog
+   Swal.fire({
+      title: 'Bloom Basket',
+      text: 'Do you want to Delete this Category?',
+      icon: 'question',		
+      showCancelButton: true,		
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+      
+    }).then((result)=>{
+      if (result.isConfirmed) {
+        window.location.href = e.target.href;
+    }
+    })
+  }
+
+</script>
+
+
+<%- include('../layouts/footer.ejs') -%>

@@ -1,0 +1,146 @@
+
+<div class="container mt-5">
+    <div class="row shadow p-3 mb-5 bg-body rounded">
+         
+          <div class="d-flex justify-content-center align-items-center m-3"> 
+            <div style="width:50%; text-align: center;"> 
+            
+                <button id="day" onclick="day()" style="background-color: #045407; color:white">Daily</button>
+                <button id="week" onclick="week()" style="background-color: #045407; color:white;">Weekly</button>
+                <button id="month" onclick="month()" style="background-color: #045407; color:white">Monthly</button>
+            
+                <canvas class="p-2" id="myChart"></canvas>
+            </div>           
+        </div>
+    </div>
+</div>  
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+  // Define the initial empty data
+  const initialData = {
+    labels: [],
+    datasets: [{
+      label: "Sale",
+      data: [],
+      borderWidth: 1,
+      backgroundColor: '#258579',
+      //'#B5FC97'
+    }],
+  };
+
+  // Initialize the chart with the empty data
+  const ctx = document.getElementById('myChart');
+  const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: initialData,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+  </script>
+
+  <script>
+    function day(){
+      document.getElementById('day').style.backgroundColor='#09F82D'
+      document.getElementById('day').style.color='#000000' 
+      document.getElementById('week').style.backgroundColor='#045407'
+      document.getElementById('week').style.color='#ffffff' 
+      document.getElementById('month').style.backgroundColor='#045407'
+      document.getElementById('month').style.color='#ffffff' 
+      
+        async function fetchData(){
+                const response = await fetch(`/admin/dayReport`)
+                const data = await response.json();
+                return data
+               }
+              
+    fetchData().then(data=>{
+      //  const date = data.data.map(index=>index.date)
+        const date = data.data.map(index => (new Date(index.date)).toLocaleTimeString('en-US', { hour12: false }));
+
+         const sale = data.data.map(index=>index.amount)
+            console.log(date,"date datasa areeeeee",sale)
+            myChart.config.data.labels = date;
+            myChart.config.data.datasets[0].data = sale
+             myChart.config.data.datasets[0].label = "Today's Sale";
+            myChart.update();
+    })
+    
+    }
+    
+</script>
+<script>
+    function week(){
+      document.getElementById('day').style.backgroundColor='#045407'
+      document.getElementById('day').style.color='#ffffff'       
+      document.getElementById('week').style.backgroundColor='#09F82D'
+      document.getElementById('week').style.color='#000000'
+      document.getElementById('month').style.backgroundColor='#045407'
+      document.getElementById('month').style.color='#ffffff' 
+      
+
+        async function fetchData(){
+            console.log("in week fn")
+            const response = await fetch(`/admin/weekReport`)
+               
+                   const data = await response.json();
+                   console.log(data)
+                    return data
+               }
+              
+               fetchData().then(data=>{
+                const date = data.data.map(index=>index._id.day)
+                 const sale = data.data.map(index=>index.totalSales)
+                    console.log(date,"date datasa areeeeee",sale)
+                    myChart.config.data.labels = date;
+                    myChart.config.data.datasets[0].data = sale
+                     myChart.config.data.datasets[0].label = "Weekly Sale";
+                    myChart.update();
+            })
+            
+    }
+</script>
+<script>
+    function month(){
+      document.getElementById('day').style.backgroundColor='#045407'
+      document.getElementById('day').style.color='#ffffff' 
+      
+      document.getElementById('week').style.backgroundColor='#045407'
+      document.getElementById('week').style.color='#ffffff' 
+      
+      document.getElementById('month').style.backgroundColor='#09F82D'
+      document.getElementById('month').style.color='#000000'
+     
+
+         async function fetchData()
+                {
+                    console.log("in month fn")
+                    const response = await fetch(`/admin/monthReport`)
+                    const data = await response.json();
+                   console.log(data)
+                    return data
+               }
+              
+               fetchData().then(data=>{
+                const ordermonth = data.data.map(index=>index._id.month)
+                const month = ordermonth.map(monthNumber =>new Date(0, monthNumber - 1).toLocaleString('default', { month: 'long' }))           
+                 const sale = data.data.map(index=>index.totalSales)
+                    console.log(month,"date datasa areeeeee",ordermonth)
+                    myChart.config.data.labels = month;
+                    myChart.config.data.datasets[0].data = sale
+                     myChart.config.data.datasets[0].label = "Monthly Sale";
+                    myChart.update();
+            })
+    }
+    
+    
+  </script>
+   
+          
+  

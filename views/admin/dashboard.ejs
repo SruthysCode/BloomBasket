@@ -1,0 +1,401 @@
+<%- include('../layouts/adminheader.ejs') -%>
+
+
+   <style>
+      /* Center the header title */
+      .header {
+         text-align: center;
+      }
+
+      /* Style the header title */
+      .header h1 {
+         font-size: 36px;
+         font-weight: bold;
+         color: #333;
+         text-transform: uppercase;
+         letter-spacing: 2px;
+         margin: 0;
+         padding: 20px 0;
+      }
+
+      /* Add a border to the header */
+      .header {
+         border-bottom: 1px solid #ccc;
+      }
+
+      .sales-report {
+         margin-top: 20px;
+         padding: 20px;
+         border: 1px solid #ccc;
+         border-radius: 5px;
+         background-color: #f5f5f5;
+      }
+
+      .sales-report-title {
+         text-align: center;
+      }
+
+      .sales-report-form {
+         display: flex;
+         align-items: center;
+      }
+
+      .sales-report-form label {
+         margin-right: 10px;
+      }
+
+      .sales-report-form input,
+      .sales-report-form button {
+         padding: 5px 10px;
+      }
+
+      .sales-report-button {
+         background-color: #007bff;
+         color: #fff;
+         border: none;
+         border-radius: 3px;
+      }
+
+      .sales-report-button:hover {
+         background-color: #920303;
+         cursor: pointer;
+      }
+   </style>
+
+
+   <div class="container">
+      <div class="row">
+         <div class="main">
+
+            <div class="cards">
+               <div class="container p-5">
+                  <div class="row">
+
+                     <!-- gains starts -->
+                     <div class="col-lg-3">
+                        <div class="card">
+                           <div class="card-body">
+                              <div class="d-flex justify-content-between">
+                                 <div class="bg-soft-primary rounded p-3">
+                                    <svg class="icon-24" xmlns="http://www.w3.org/2000/svg" width="24" fill="none"
+                                       viewBox="0 0 24 24" stroke="currentColor">
+                                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                 </div>
+                                 <div>
+                                    <span>Net Worth</span>
+                                 </div>
+                              </div>
+                              <div class="text-center">
+                                 <h2 class="counter">
+                                    <%= totalRevenue %> M
+                                 </h2>
+                                 <div>
+                                    <span class="text-success">
+                                       <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
+                                          viewBox="0 0 20 20" fill="currentColor">
+                                          <path fill-rule="evenodd"
+                                             d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z"
+                                             clip-rule="evenodd" />
+                                       </svg>
+                                       10%
+                                    </span>
+                                    <span>Increased</span>
+                                 </div>
+                              </div>
+                           </div>
+                           <div id="chart-1"></div>
+                        </div>
+                     </div>
+
+
+                     <!-- gain ends -->
+
+                     <!-- user count starts -->
+                     <div class="col-lg-3">
+                        <div class="card">
+                           <div class="card-body">
+                              <div class="d-flex justify-content-between">
+                                 <div class="rounded p-3 bg-soft-success">
+                                    <svg class="icon-24" xmlns="http://www.w3.org/2000/svg" width="24" fill="none"
+                                       viewBox="0 0 24 24" stroke="currentColor">
+                                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                    </svg>
+                                 </div>
+                                 <div>
+                                    <span>Total Users</span>
+                                 </div>
+                              </div>
+                              <div class="text-center">
+                                 <h2 class="counter">
+                                    <%= users %> K
+                                 </h2>
+                                 <div>
+                                    <span>
+                                       <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
+                                          viewBox="0 0 20 20" fill="currentColor">
+                                          <path fill-rule="evenodd"
+                                             d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z"
+                                             clip-rule="evenodd" />
+                                       </svg>
+                                       30%
+                                    </span>
+                                    <span>Increased</span>
+                                 </div>
+                              </div>
+                           </div>
+                           <div id="chart-3"></div>
+                        </div>
+                     </div>
+
+                     <!-- user count ends -->
+
+
+                     <!--orders starts  -->
+
+                     <div class="col-lg-3">
+                        <div class="card">
+                           <div class="card-body">
+                              <div class="d-flex justify-content-between">
+                                 <div class=" rounded p-3 bg-soft-danger">
+                                    <svg class="icon-24" xmlns="http://www.w3.org/2000/svg" width="24" fill="none"
+                                       viewBox="0 0 24 24" stroke="currentColor">
+                                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+                                 </div>
+                                 <div>
+                                    <span>Orders Received</span>
+                                 </div>
+                              </div>
+                              <div class="text-center">
+                                 <h2 class="counter">
+                                    <%= orders %> K
+                                 </h2>
+                                 <div>
+                                    <span class="text-danger">
+                                       <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10px"
+                                          viewBox="0 0 20 20" fill="currentColor">
+                                          <path fill-rule="evenodd"
+                                             d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z"
+                                             clip-rule="evenodd" />
+                                       </svg>
+                                       10%
+                                    </span>
+                                    <span>Increased</span>
+                                 </div>
+                              </div>
+                           </div>
+                           <div id="chart-4"></div>
+                        </div>
+                     </div>
+                     <!-- orders ends here -->
+
+                     <!-- Products starts -->
+
+                     <div class="col-lg-3">
+                        <div class="card">
+                           <div class="card-body">
+                              <div class="d-flex justify-content-between">
+                                 <div class="rounded p-3 bg-soft-success">
+                                    <svg class="icon-19" xmlns="http://www.w3.org/2000/svg" width="24" fill="none"
+                                       viewBox="0 0 24 24" stroke="currentColor">
+                                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                    </svg>
+                                 </div>
+                                 <div>
+                                    <span>Total Products</span>
+                                 </div>
+                              </div>
+                              <div class="text-center">
+                                 <h2 class="counter">
+                                    <%= products %> K
+                                 </h2>
+                                 <div>
+                                    <span>
+                                       <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
+                                          viewBox="0 0 20 20" fill="currentColor">
+                                          <path fill-rule="evenodd"
+                                             d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z"
+                                             clip-rule="evenodd" />
+                                       </svg>
+                                       30%
+                                    </span>
+                                    <span>Increased</span>
+                                 </div>
+                              </div>
+                           </div>
+                           <div id="chart-3"></div>
+                        </div>
+                     </div>
+
+                     <!-- products end -->
+                     <div>
+                     </div>
+
+
+                     <!-- chart starts here  -->
+
+                     <div class="container">
+                        <div class="row shadow p-3 m-5 bg-body rounded">
+                           <!-- chart1 starts here -->
+                           <div class="container" style="width:60%; height:20% mb-5">
+                              <div class="row" style="width: 80%; margin:0 auto;">
+                                 <canvas id="chart" width="100px" height="100px"></canvas>
+                              </div>
+                           </div>
+                           <!-- chart1 ends here -->
+                        </div>
+                     </div>
+                     <div class="container mt-5">
+                        <div class="row">
+                           <div class="raw d-flex">
+
+                              <div class="col-3 offset-2 my-3">
+                                 <div class="card">
+                                    <div class="card-body">
+                                       <h5 style="text-align: center;">Payment Data</h5>
+                                       <hr>
+                                       <canvas id="myChart2"></canvas>
+                                       <input id="cashondelivery" type="hidden" name="cashondelivery"
+                                          value="<%=cashOnDeliveryCount %>">
+                                       <input id="razorpay" type="hidden" name="razorpay" value="<%= razorpayCount %>">
+                                       <input id="wallet" type="hidden" name="wallet" value="<%= walletCount %>">
+
+                                    </div>
+                                 </div>
+                              </div>
+
+                              <div class="col-3 offset-2 my-3">
+                                 <div class="card">
+                                    <div class="card-body">
+                                       <h5 style="text-align: center;">Category wise Sales</h5>
+                                       <hr>
+                                       <canvas id="myChart3"></canvas>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+
+         <a href="#" class="btn btn-lg btn-success btn-lg-square back-to-top" style="width: 5%;"><i
+               class="bi bi-arrow-up"></i></a>
+
+
+
+
+         <!-- chart script -->
+         <script src="/js/piechart.js"></script>
+         <script>
+
+            const orderCounts = JSON.parse('<%- JSON.stringify(orderCounts) %>');
+            const monthName = '<%= (monthNames) %>'
+            const ordersNum = JSON.parse('<%- JSON.stringify(ordersnum) %>');
+
+            console.log("ksjhklhefh", orderCounts, monthName, ordersNum, monthName.length)
+            const dates = orderCounts.map(order => order.month);
+            const counts = orderCounts.map(order => order.count);
+            console.log("ksjhklhefh", orderCounts, monthName, ordersNum, dates, counts)
+
+
+            const ct = document.getElementById('chart');
+
+            new Chart(ct, {
+               type: 'bar',
+               data: {
+                  labels: monthName,
+                  datasets: [{
+                     label: 'Total Orders',
+                     data: ordersNum,
+                     backgroundColor: [
+                        'rgba(25, 99, 132, 0.2)',
+                        'rgba(25, 30, 116, 0.2)',
+                        'rgba(177, 1, 101, 0.2)',
+                     ],
+                     borderWidth: 1
+                  }]
+               },
+               options: {
+                  scales: {
+                     y: {
+                        beginAtZero: true
+                     }
+                  }
+               }
+            });
+         </script>
+
+         <script>
+            const data1 = document.getElementById("razorpay").value;
+            const data2 = document.getElementById("cashondelivery").value;
+            const data3 = document.getElementById("wallet").value;
+
+            console.log(data1, data2, "dataaa");
+
+            const ctx2 = document.getElementById("myChart2");
+
+            new Chart(ctx2, {
+               type: "doughnut",
+
+               data: {
+                  labels: ["Cash On Delivery", "Razor Pay", "Wallet"],
+                  datasets: [
+                     {
+                        label: "Total Count",
+                        data: [data1, data2, data3],
+                        backgroundColor: [
+                           "rgb(196, 145, 4)",
+                           "rgb(112, 3, 1)",
+                           "rgb(177, 1, 101)",
+                        ],
+                        hoverOffset: 4,
+                     },
+                  ],
+               },
+            });
+
+         </script>
+
+
+         <script>
+            // i have a categorysale value here
+            const catOrderCounts = JSON.parse('<%- JSON.stringify(catsales) %>')
+
+            var catNames = catOrderCounts.map(order => order._id);
+            var catcounts = catOrderCounts.map(order => order.totalSales);
+
+
+            console.log("pie", catNames, catcounts)
+            const ctx3 = document.getElementById("myChart3");
+            console.log(catcounts, catNames, "catcountsss,catnamessss")
+            new Chart(ctx3, {
+               type: "pie",
+               data: {
+                  labels: catNames,
+                  datasets: [{
+                     label: 'Total Count',
+                     data: catcounts,
+                     backgroundColor: [
+                        'rgb(3, 7, 105)',
+                        'rgb(3, 95, 102)',
+                        'rgb(204, 204, 3)'
+                     ],
+                     hoverOffset: 4
+                  }]
+               }
+            });
+
+         </script>
+
+
+         <%- include('../admin/testchart.ejs') -%>
+            <%- include('../layouts/footer.ejs') -%>

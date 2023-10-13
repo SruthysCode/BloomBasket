@@ -1,0 +1,167 @@
+
+<%- include('../layouts/header.ejs') -%>
+<div class="nav-bar">
+    <nav class="navbar navbar-expand-lg navbar-light " style="background-color:rgb(4, 156, 100);">
+        <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>                      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            </ul>
+                <!-- <li class="nav-item">
+                  <a class="nav-link" href="#">Shop</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Categories</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Contact</a>
+                </li>
+                <li>    
+                          -->
+            
+                          
+                <div style="display: inline-block; margin-left: auto; margin-right: 0;">
+                  <form action="/search" method="get">
+                    <div class="d-flex align-items-end ">
+                <input class="form-control me-2" type="search" placeholder="Search" style="width:auto;"  name="search"  aria-label="Search">
+                <button class="btn btn-success" type="submit">Search</button>      
+                <input class="form-control me-2" type="text" name="limit" style="margin-left: 10px; width:60px" id="limit" placeholder="Pages" >
+                                    
+                <div class="form-group">
+                  <select class="form-select" name="category">
+                    <option value="" selected>Categories </option>     
+                     <%  for(let i=0;i<category.length; ++i)
+                         {%>                   
+                     <option ><%= category[i].name %></option>
+                     <% }%>                     
+                 </select>
+             </div>
+
+                
+            </div>
+              </form>
+            </div>  
+            <div  style="display: flex; justify-content: flex-end;" >
+            <div>
+              <ul class="navbar-nav navbar-right">
+                <% if(user)
+                {
+                %>
+                <%= message.success %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cart"><h6><i class="bi bi-cart teal-color"><span class="badge badge-success" id="Cart-Count"><%= CartCount %></span></i></h6></a>
+                </li>
+                <!-- <li class="nav-item">
+                  <a class="nav-link" href="/test"><h6><i class="bi bi-cart red-color"><span class="badge badge-success"  ></span></i></h6></a>
+                </li>            -->
+                <div class="d-flex align-items-end " style="align-items:end">
+                <li class="nav-item">              
+                <div class="card-header">
+                  <h6 class="card-title">
+                     <a class="nav-link" href="/profile">
+                        <i class="bi bi-person-circle"></i> 
+                        <%= user.name %>
+                     </a>
+                  </h6>
+                </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="logout"  href="/logout"><h6 id="logoutt">Logout</h6></a>
+                </li>
+             
+                <% } else { %>
+                <li class="nav-item">
+                  
+                    <a class="nav-link" href="/login"><h6>Login</h6></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"href="/signup"><h6>Sign up</h6></a>
+                </li>
+                <% } %>                
+              </ul>
+            </div>          
+            <ul class="navbar-nav navbar-right">
+            </ul>
+          </div>
+        </div>
+        </div>
+    </nav>
+  </div>                
+    </header>
+    <body>
+
+
+      <!-- MDB -->
+<script
+type="text/javascript"
+src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"
+></script>
+
+<!--       
+      <script>
+     
+        $(document).ready(function () {
+          // Initialize the dropdown
+          $('.dropdown-toggle').dropdown();
+      
+          // If you want to handle click events on the dropdown items
+          $('.dropdown-item').click(function() {
+            // Get the text of the clicked item
+            var selectedItemText = $(this).text();
+            
+            // Do something with the selected item, e.g., display it or perform an action
+            console.log("Selected item:", selectedItemText);
+          });
+        });
+        
+
+        //toaster
+        
+        // Initialize toastr
+toastr.options = {
+  closeButton: true,
+  progressBar: true,
+  positionClass: 'toast-top-right', // You can change the position
+};
+
+$(document).ready(function () {
+
+        $('#logoutt').on('click',function(){
+
+          // Initialize toastr
+toastr.options = {
+  closeButton: true,
+  progressBar: true,
+  positionClass: 'toast-top-right', // You can change the position
+};
+
+          console.log("logout")
+
+          toastr.success("hello")
+          console.log("aftre")
+
+          toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+          }
+        })
+      })
+    </script> -->

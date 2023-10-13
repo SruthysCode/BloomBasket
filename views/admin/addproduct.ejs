@@ -1,0 +1,67 @@
+
+<%- include('../layouts/adminheader.ejs') -%>
+<!-- 
+<div class=" center-div container-fluid p-5" ">
+    <h1>ADD PRODUCT</h1>
+    </div> -->
+
+
+<div class="center-div container-fluid p-5" ">
+    <h1>ADD PRODUCT</h1>
+    <div class="container  w-50 border py-5">
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="d-flex">
+                <div class="flex-grow-1">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Name </label>
+                        <input type="text" class="form-control" id="formGroupExampleInput" name="name" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Description</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput2" name="description" placeholder="">
+                    </div>
+                    <div class="form-group">
+                         <label for="formGroupExampleInput2">Category</label>
+                         <select class="form-select" name="category">
+                                                   
+                            <%  for(let i=0;i<category.length; ++i)
+                            {%>                   
+                            <option ><%= category[i].name %></option>
+                            <% }%>     
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Price</label>
+                            <input type="text" class="form-control" id="price" name="price" placeholder="" on>
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Stock</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput2" name="stock" placeholder="">
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="exampleFormControlFile1">Image 1</label>
+                            <input type="file" class="form-control" name="images" id="images" multiple>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="exampleFormControlFile1">Image 2</label>
+                            <input type="file" class="form-control" name="images" id="exampleFormControlFile1">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlFile1">Image 3</label>
+                            <input type="file" class="form-control" name="images" id="exampleFormControlFile1">
+                        </div>             -->
+                    </div>
+                </div>    
+                        <br>
+                <button type="submit" id="submit" name="submit" class="btn btn-success">Add Product</button>
+            </form>
+        </div>
+    </div>
+
+
+    <%- include('../layouts/footer.ejs') -%>
+
+
+

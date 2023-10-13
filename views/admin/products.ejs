@@ -1,0 +1,137 @@
+
+<%- include('../layouts/adminheader.ejs') -%>
+
+<!-- <h1>Products page</h1> -->
+<br>
+
+<div class="container">
+    <div class="row shadow p-3 mb-5 bg-body rounded"> 
+      <!-- <section class="h-100" style="background-color: #c8d5cf;"> -->
+        <div class="container h-80 py-3">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-10" >
+              
+              <a href="/admin/new-product"><button type="button" style="width: 16%;" class="btn btn-success">Add New Product</button></a>
+              
+              
+
+                <div class="form-outline mb-4">
+                  <input type="search" class="form-control" id="search-input" name="search-input" placeholder="Search">
+                  <!-- <label class="form-label" for="datatable-search-input">Search</label> -->
+                </div>
+                <!-- <div id="datatable">
+                </div> -->
+
+              </div>
+          <table class="table align-middle table-hover mb-0 bg-white">
+          <thead class="bg-light">
+            <tr>
+              <th>Image</th>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Description</th>
+              <th>Stock</th>
+              <th>Price</th>              
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if(product.length>0)
+            {
+                    for(let i=0;i<product.length; ++i)
+                    {%>
+            <tr>
+              
+                <div class="d-flex align-items-center">
+                <td>
+                  <img
+                      src="/static/productimages/<%= product[i].image[0] %>"
+                      alt=""
+                      style="width: 45px; height: 45px"
+                      class="rounded-circle"
+                      />
+                </td>      
+                 <td>      
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1"><%= product[i].name %></p>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <p class="fw-normal mb-1"><%=product[i].category %></p>
+              </td>
+              <td>
+                  <%= product[i].description %>
+              </td>
+              <td>
+                <%= product[i].stock %>
+            </td>
+
+              <td> &#8377 <%= product[i].price %></td>
+              <td>
+                <!-- Edit button -->
+                <form method="get" action="/admin/edit-product/">
+                  <input type="hidden" name="id" value="<%= product[i]._id %>">
+                  <button type="submit" class="btn btn-success btn-sm btn-rounded">
+                      Edit
+                  </button>
+              </form>
+            </td>
+            <td>
+              <!-- Delete button -->
+              
+                <a href="/admin/delete-product?id=<%= product[i]._id %>" onclick="removeCartalert(event)" type="button"
+                  class="btn btn-success btn-sm btn-rounded"> Delete
+
+                  </a>
+               
+                </td>
+            </tr>
+            <%  }
+              } else{
+              %>
+
+              <tr>
+                <td>
+                    NO products to display
+                </td>
+            </tr>
+              <%}%>
+          </tbody>
+        </table>
+        <br>
+        <a href="/admin/home"><p><button type="button" style=" border-radius: 50px;" class="btn btn-success"><< Back</button></p></a>
+      </div>
+    </div>
+    </div>
+    </section>
+</div>
+
+</div>
+
+<script>
+
+    function removeCartalert(e)
+    {
+    e.preventDefault();
+  
+    // Display a SweetAlert dialog
+   Swal.fire({
+      title: 'Bloom Basket',
+      text: 'Do you want to Delete this product?',
+      icon: 'question',		
+      showCancelButton: true,		
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+      
+    }).then((result)=>{
+      if (result.isConfirmed) {
+        window.location.href = e.target.href;
+    }
+    })
+  }
+
+</script>
+
+<%- include('../layouts/footer.ejs') -%>

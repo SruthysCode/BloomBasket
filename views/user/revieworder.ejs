@@ -1,0 +1,146 @@
+<%- include('../layouts/userheader.ejs') -%>
+
+
+<div class="container">
+    <div class="row">
+        <form action="" method="post">
+        <section class="h-100 gradient-custom">
+            <div class="container py-5 h-100">
+              <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-lg-10 col-xl-8">
+                  <div class="card" style="border-radius: 10px;">
+                    <div class="card-header px-4 py-5">
+                      <h5 class="text-muted mb-0">Thanks for your Order, <%= user.name %> <span style="color: #5d8060;"><!--username-->
+                      </span>!</h5>
+                    </div> 
+                    <div class="card-body p-4">
+                      <div class="d-flex justify-content-between align-items-center mb-4">
+                        <p class="lead fw-normal mb-0" style="color: #046a3c;">Receipt</p>
+                        <!-- <p class="small text-muted mb-0">Receipt Voucher : 1KAU9-84UIL</p> -->
+                      </div>
+                      <% 
+                      
+                      if(product.length>0)
+                      {
+                              for(let i=0;i<product.length; ++i)
+                              {
+                                
+                                %>
+                      <div class="card shadow-0 border mb-4">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-md-2">
+                              <img src="/static/productimages/<%= product[i].pro_id.image[0] %>" style="width: 50px; height: 50px"
+                                class="img-fluid" alt="<%= product[i].pro_id.name %>">
+                            </div>
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                              <p class="text-muted mb-0"><%= product[i].pro_id.name %></p>
+                            </div>
+                            <!-- <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                              <p class="text-muted mb-0 small">White</p>
+                            </div> -->
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                              <p class="text-muted mb-0 small"><%= product[i].category %></p>
+                            </div>
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                              <p class="text-muted mb-0 small">Qty: <%= product[i].qty %></p>
+                            </div>
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                              <p class="text-muted mb-0 small">	&#8377 <%= product[i].price %>  </p>
+                            </div>
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                <p class="text-muted mb-0 small"> 	&#8377 <%= product[i].price * product[i].qty %></p>
+                              </div> 
+                          </div>
+                        </div>
+                      </div>
+                      
+            <%
+        }
+        %>                 
+                      <div class="d-flex justify-content-between pt-2">
+                        <p class="fw-bold mb-0">Order Details</p>
+                        <p class="text-muted mb-0"><span class="fw-bold me-4">Total</span> 	&#8377 <%= amount %></p>
+                      </div>
+          
+                      <div class="d-flex justify-content-between pt-2">
+                        <input type="hidden" name="orderid" value="<%= order._id %>">
+                        <p class="text-muted mb-0">Invoice Number :  <%= order._id %></p>
+                        <p class="text-muted mb-0"><span class="fw-bold me-4">Discount</span> 	&#8377 <%= amount * 0.02 %></p>
+                      </div>
+          
+                      <div class="d-flex justify-content-between">
+                        
+                          <p class="text-muted mb-0">Invoice Date: <%= (order.date).                            toLocaleString('default', { day: 'numeric', month: 'short', year: 'numeric' })
+                            %></p>
+                          
+                      
+                         <p class="text-muted mb-0"><span class="fw-bold me-4">GST 18%</span>	&#8377 <%= amount * 0.18 %></p>
+                      </div>
+          
+                      <div class="d-flex justify-content-between mb-5">
+                        <!-- <p class="text-muted mb-0">Recepits Voucher : 18KU-62IIK</p> -->
+                        <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p>
+                      </div>
+                    </div>
+                    <div class="card-footer border-0 px-4 py-5"
+                      style="background-color: #397139; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+                      <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Total
+                        paid: <span class="h2 mb-0 ms-2">	&#8377 <%=  amount - amount * 0.02 + amount * 0.18   %></span></h5>
+                    </div>
+                    <div>
+                        <br>
+       <%         
+      } else
+      {
+        %>
+        <div class="card shadow-0 border mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-2">
+              <h5>No Products </h5>
+              </div>
+            </div>
+          </div>
+        </div>     
+        <%
+      }
+          %>                                       
+                        <button formaction="/checkout" type="submit" class="btn btn-success" style="float: right;">CheckOut</button>
+                
+                    </div>
+                    <br>       
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+        </form>
+
+
+    </div>
+</div>
+
+
+
+
+    <script>
+        // Get the current date
+        const currentDate = new Date();
+
+        const day = currentDate.getDate();
+        const month = currentDate.toLocaleString('default', { month: 'short' }); // Get the abbreviated month name
+        const year = currentDate.getFullYear();
+      
+        // Concatenate the components to form the desired date format
+        const formattedDate = `${day} ${month} ${year}`;
+      
+        // Get the HTML element by its ID
+        const dateElement = document.getElementById('currentDate');
+      
+        // Set the formatted date as the content of the HTML element
+        dateElement.textContent = formattedDate
+    </script>
+<%- include('../layouts/footer.ejs') -%>

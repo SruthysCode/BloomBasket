@@ -1,0 +1,29 @@
+<!-- Add these scripts at the end of your HTML body -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+
+<div class="modal" tabindex="-1" role="dialog" style="height: 300px; width:200px">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><%= title%></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p><%= message %></p>
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <!-- example.ejs -->
+<button id="openModalButton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#commonModal">Open Common Modal</button>
+
+
+        </div>
+      </div>
+    </div>
+  </div>

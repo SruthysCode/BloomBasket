@@ -1,0 +1,103 @@
+<%- include('../layouts/adminheader.ejs') -%>
+
+
+
+<div class="container">
+  <div class="row shadow p-3 mb-5 bg-body rounded m-4">
+        <!-- <div class="m-l-auto p-r-15 p-b-15 b-10"> -->
+        <a href="/admin/addcoupon" class="btn btn-success" style="width:15%; " >Add new coupon</a>
+      <!-- </div> -->
+    <br>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3  mt-4 ">
+        
+           
+      <%
+      if(coupon.length>0)
+      {
+        for(let i=0; i<coupon.length; ++i)
+        {
+
+       %>
+      <div class="col mb-4">
+        <div class="card h-100">
+          <div class="card-header py-3">
+            <h5 class="mb-0">Coupon</h5>
+          </div>
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                Coupon code:
+                <span><%= coupon[i].code %></span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                Discount percent:
+                <span><%= coupon[i].discount %></span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                <% const dateString = coupon[i].expiry 
+                                      
+                const date = new Date(dateString)
+                const day = date.getDate().toString().padStart(2, '0')
+                const month = (date.getMonth() + 1).toString().padStart(2, '0')
+                const year = date.getFullYear()
+                const formattedDate = `${day}-${month}-${year}`
+                %>
+            
+                Expiry date:
+                <span><%= formattedDate %></span>
+              </li>
+            </ul>
+  
+            <a href="/admin/deletecoupon?id=<%= coupon[i]._id %>" onclick="deleteCoupon(event)" type="button"
+              class="btn btn-success btn-sm btn-rounded btn-block mt-3" style="width:40%;">
+              Delete coupon
+            </a>
+  
+          </div>
+        </div>
+      </div>
+      <%     
+        }
+    }
+    else
+    {
+    %>
+    <div class="col mb-4">
+        <div class="card h-100">
+          <div class="card-header py-3">
+            <h5 class="mb-0">No Coupons Available</h5>
+          </div>
+        </div>
+    </div>
+   <% 
+    }
+  %>
+</div>
+
+    </div>
+  </div>
+  
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+      <script>
+          function deleteCoupon(event) {
+              event.preventDefault();
+  
+              Swal.fire({
+                  title: 'Bloom Basket',
+                  text: 'Are you sure you want to delete this coupon?',
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonText: 'Delete',
+                  cancelButtonText: 'Cancel',
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      window.location.href = event.target.href;
+                  }
+              });
+          }
+      </script>
+
+      <%- include('../layouts/footer.ejs') -%>
+
+  

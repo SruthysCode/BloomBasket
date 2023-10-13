@@ -1,0 +1,20 @@
+
+<%- include('../layouts/adminheader.ejs') -%>
+<h1>
+    Admin Home
+</h1>
+<div class="container mt-5 mb-5">
+    <div class="row d-flex justify-content-center">
+        
+        <p>Products : <%= product.length %></p>
+        <p>Category : <%= category.length %></p>
+        <p>User  : <%= user.length %></p>
+
+    </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/graph.ejs') -%>
+<%- include('../admin/dashboard.ejs') -%>
+<%- include('../layouts/footer.ejs') -%>

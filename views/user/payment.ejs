@@ -1,0 +1,440 @@
+<%- include('../layouts/userheader.ejs') -%>
+
+
+<div class="container">
+    <div class="row">
+    
+        <div class=" center-div container-fluid p-5" ">
+            <div class="container border py-5">
+
+              
+                <!-- New editingssssssssss -->
+
+          
+          <div class="card mb-4" style="display:inline-block">
+            <div class="card-header">Payment Details</div>
+            <div class="card-body">
+              <h6 class="mb-3">Choose a payment method</h6>
+              <div class="form-check mt-4">
+                <input class="form-check-input" type="radio" name="payment_option" value="cash-on-delivery"
+                  id="cash-on-delivery">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Cash On Delivery
+                </label>
+              </div>
+              <div class="form-check mt-3 mb-3">
+                <input class="form-check-input" type="radio" name="payment_option" value="razorpay" id="razorpay">
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Razor Pay
+                </label>
+              </div>
+              <div class="form-check mt-3 mb-3">
+                <input class="form-check-input" type="radio" name="payment_option" value="wallet" id="wallet">
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Wallet
+                </label>
+              </div>
+              <div class="bg-dark text-white p-15 rounded ml-3" style="width: fit-content;">
+                <p class="my-2 mx-2" style="font-size: smaller;">Available Balance : <strong>₹<span
+                      id="update_wallet"><%= users.wallet %></span> </strong></p>
+                <input type="hidden" value="<%= users.wallet %>" name="wallet" id="wallet">
+              </div>
+            </div>
+
+          </div>
+            
+          <div class="col-xl-4">
+              <!-- Profile picture card-->
+              <div class="card mb-4 mb-xl-0">
+              
+                <h4 class="d-flex justify-content-between align-items-center mb-3 card-header">
+                  <span class=" text-muted">Your Payment</span>
+                  <span class="badge badge-secondary badge-pill"></span>
+                </h4>
+                <ul class="list-group mb-3">
+                
+                  <li class="list-group-item d-flex justify-content-between bg-light">
+                    <div class="text-success" style="width: 95%;">
+                      <h6 class="my-0">Coupon code</h6>
+                      <span id="coupon_code">
+                        <small></small>
+                      </span>
+                    </div>
+                    <span id="discount_amt">
+                      <span class="text-success"></span>
+                    </span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between">
+                    <span>Total (INR)</span><span></span>
+                    <span id="new_total"> <%= amount %></span>
+                    <!-- <input hidden="" name="subTotal" value="<%= amount %>" id="subTotal"> -->
+                  
+                    <input hidden="" name="addr" value="<%= address %>" id="addr">
+                  
+                  </li>
+
+                </ul>
+
+                <div class="card p-2 ">
+                  <div class="input-group" style="display:flexbox">
+                    <input type="text" id="coupon" class="form-control" placeholder="Promo code" name="coupon"  required>
+                    <div class="input-group-append">
+                      <button onclick="validateCoupon()" type="button" class="btn btn-success btn-sm  ml-2 mt-1">Redeem</button>
+                    </div>
+                  </div>
+                  <div class="text-center m-2" style="color: red;" id="couponMsg"> </div>
+                  <p class="text-center m-2" style="color: green;" id="sCouponMsg"> </p>          
+                  <div class="border" style="padding: 10px; border-radius: 5px;">
+                    <details>
+                      <summary>Available coupons</summary>
+                      <% if(coupon.length >0)
+                      {
+                        for(let i=0;i<coupon.length;++i )
+                        {
+                        %>
+                      <div class="d-flex justify-content-between">
+                        <h6 class="my-2"><%= coupon[i].code %></h6>
+                        <p>Get <%= coupon[i].discount %>% discount</p>
+                      </div>
+                      <% 
+                        }
+                      }
+                      else
+                      {
+                        %> 
+                        <h6 class="mb-3">No coupon available</h6>
+                      
+                      <% } %>
+                    </details>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          
+
+
+<br>
+            <!--  -->
+          <span id="order_button">
+            <button onclick="placeOrder()" class="btn btn-success btn-lg"> Complete Payment</button>
+          </span>
+        </div>
+      
+
+    </div>
+<!-- again aaadddding  -->
+
+
+
+<!-- new editings       tilll hereeeeeeeeeeeeeeeeee -->
+
+                            <!-- <h4 class="mb-3">Payment</h4>
+                            <form action="/revieworder" method="post">
+                                <input type="hidden" id="orderid" name="orderid" value="<%= %>">
+                        <div class="d-block my-3">
+                            <div class="custom-control custom-radio">
+                                <input id="cod" name="paymentMethod" type="radio" value="cod"  class="custom-control-input"  required="">
+                                <label class="custom-control-label" for="credit">Cash On Delivery</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input id="razor" name="paymentMethod" type="radio" value="razorpay" class="custom-control-input" required="">
+                                <label class="custom-control-label" for="debit">Razor Pay</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input id="wallet" name="paymentMethod" type="radio" value="wallet" class="custom-control-input" checked="" required="">
+                                <label class="custom-control-label" for="paypal">Wallet</label>
+                            </div>
+                        </div>
+                        <hr>
+                        <hr class="mb-4">
+                        <button onclick="payment()" class="btn btn-primary btn-lg btn-block" type="submit">Complete Payment</button>
+                    </form>
+                </div> -->
+            </div>
+          </div>
+
+
+       
+    </div>
+</div>
+
+ <!-- script to enable & disable inputs based on radio button selected -->
+
+
+<script>
+$(document).ready(function() {
+    $('input[name="paymentMethod"]').change(function() {
+        // Check  "Cash On Delivery" radio button is selected
+        if ($('#cod').is(':checked')) {
+            // Disable the input fields
+           /* 
+            $('#c-name').prop('disabled', true);
+            $('#c-number').prop('disabled', true);
+            $('#c-expiration').prop('disabled', true);
+            $('#cc-cvv').prop('disabled', true);
+
+            */
+        } else {
+
+
+            // If any other radio button is selected, enable the input fields
+          /*
+            $('#c-name').prop('disabled', false);
+            $('#c-number').prop('disabled', false);
+            $('#c-expiration').prop('disabled', false);
+            $('#cc-cvv').prop('disabled', false);
+          */ 
+        }
+        if ($('#razor').is(':checked')) {
+
+
+        }
+        if ($('#wallet').is(':checked')) {
+
+        }
+    });
+});
+
+
+// form validation
+
+    $(document).ready(function() {
+        // Function to validate the form
+        function validateForm() {
+            var paymentMethod = $('input[name="paymentMethod"]:checked').val();
+            var cardName = $('#c-name').val();
+            var cardNumber = $('#c-number').val();
+            var cardExpiration = $('#c-expiration').val();
+            var cardCVV = $('#cc-cvv').val();
+
+            if ((paymentMethod === "credit") ||(paymentMethod === "debit")) {
+                if (!cardName || !cardNumber || !cardExpiration || !cardCVV) {
+                    alert("Please fill in all card details.");
+                    return false;
+                }
+            }
+            return true; 
+        }
+
+        
+      })
+    // new scripts 
+
+    let couponData=""
+    let couponEl=0
+    let newTotal
+    let subTotal
+    let updateWallet =0
+
+    /*
+     const cashOnDelivery = document.getElementById('cash-on-delivery');
+      const razorpay = document.getElementById('razorpay');
+    
+      cashOnDelivery.addEventListener('change', handleCheckboxChange);
+      razorpay.addEventListener('change', handleCheckboxChange); */
+
+    const paymentOption = document.querySelectorAll('input[name="payment_option"]');
+
+    console.log("paymentOption :"+ paymentOption)
+    let paymentMethod = null;
+
+    paymentOption.forEach((checkbox) => {
+      checkbox.addEventListener('change', () => {
+        if (checkbox.checked) {
+          paymentMethod = checkbox.value
+          console.log(paymentMethod, 'is the payment method')
+        } else {
+          console.log("User unchecked " + checkbox.value);
+        }
+      });
+    });
+
+
+    const placeOrder = () => {
+      console.log("in fn place order")
+      if (paymentMethod === 'cash-on-delivery') {
+        console.log("going to cod")
+        Cod()
+      } else if (paymentMethod === "razorpay") {
+        console.log("going to online")
+        online()
+      } else if (paymentMethod === 'wallet') {
+        console.log("going to wallet")
+        useWallet()
+      } else {
+        console.log('Invalid payment method.')
+      }
+    }
+
+    const useWallet = () => {
+        console.log("in wallet")
+       const wallet = document.getElementById('update_wallet').textContent
+      const subTotal =Number(document.getElementById('new_total').textContent)
+      
+      console.log(wallet, 'walletttttttttttt', subTotal)
+
+      if (wallet > subTotal) {
+        updateWallet = wallet - subTotal
+        console.log(updateWallet, 'my name is update wallet...........')
+        Cod()
+      } else {
+        alertify.set('notifier', 'position', 'top-center');
+        alertify.success('you dont have sufficient balance in ur wallet choose another payment method')
+      } 
+    }
+
+
+    const Cod = async () => {
+        console.log("in COD")
+      const selectAddress = document.getElementById('addr').value
+      console.log(selectAddress)
+     const subTotal = document.getElementById('new_total').textContent
+     console.log(subTotal)
+   //  const orderid=document.getElementById('orderid').value
+console.log("sub total is : "+ subTotal,selectAddress)
+//console.log("All datas"+ selectAddress,paymentMethod,subTotal,couponData,couponEl,updateWallet,orderid)
+//console.log(paymentMethod)
+//console.log(couponData)
+//console.log(couponEl)
+//console.log(updateWallet)
+//console.log(orderid)
+      const datas = await fetch('/revieworder', {
+        method: 'POST',
+        headers: {
+          'Content-Type': "application/json",
+        },
+        body: JSON.stringify({
+          selectedAddress: selectAddress,
+          paymentMethod: paymentMethod,
+          amount: subTotal,
+          couponData: couponData,
+          couponName: couponEl,
+          updateWallet: updateWallet,
+                  
+        })
+      })
+      console.log("after alllllllllllllllllllllll")
+      console.log("Dataaaaaaaaaaaas: "+ datas)
+      const placeOrderData = await datas.json()
+      console.log(placeOrderData + 'cheking here......now')
+      if (placeOrderData) {
+        console.log(' hiiii am from place order data')
+     //   const wallet = document.getElementById('update_wallet').innerText = updateWallet
+
+        window.location.href = '/checkout'
+      }
+    }
+
+
+    const online = () => {
+       console.log("in razor pay online")
+      subTotal =document.getElementById('new_total').textContent
+      console.log("in razor pay online",subTotal,Number(subTotal))
+     // var amountValue = subTotal.replace("&#8377", "").trim();
+      //console.log(amountValue)
+
+      var options = {
+        "key":"rzp_test_dvOV4raIMJfFxW", 
+        "amount": subTotal * 100,
+        "currency": "INR",
+        "reciept":"sruthyrobin@gmail.com",
+   
+        "handler": function (response) {
+          Cod()
+        },
+        "theme": {
+          "color": "#19CA41"
+      }
+      };
+      var rzp1 = new Razorpay(options);
+      rzp1.open();
+    }
+
+
+
+
+    let couponStatus
+
+
+    const setCouponStatus = (msg, id, color) => {
+      id.innerHTML = `<p style="color: ${color}">${msg}</p>`;
+      id.style.display = 'block';
+      setTimeout(() => {
+        id.style.display = 'none';
+        id.innerHTML = '';
+      }, 5000);
+    };
+
+    const validateCoupon = async () => {
+      try {
+        console.log("in validate coupon")
+        couponVal = document.getElementById('coupon').value;
+        console.log("Coupon : "+ couponVal)
+        subTotal = Number(document.getElementById('new_total').textContent);
+        console.log(couponVal, "couponValue", subTotal, "subtotal")
+
+        const response = await fetch('/couponvalidate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            couponVal: couponVal,
+            subTotal: subTotal
+          })
+        })
+        console.log("hii from coupon status")
+        couponData = await response.json();
+        console.log("12222233", couponData, "CouponData12333")
+
+        if (couponData === 'invalid') {
+          setCouponStatus('Invalid coupon', document.getElementById('couponMsg'), 'red');
+          console.log("invaliddd")
+        }
+        else if (couponData === 'expired') {
+          setCouponStatus('Coupon has expired', document.getElementById('couponMsg'), 'red');
+          console.log('expireddd')
+        }
+        else if (couponData === 'already used') {
+          setCouponStatus('Coupon already used', document.getElementById('couponMsg'), 'red');
+          console.log("usedddd")
+        }
+        else if (couponData.success === 'success') {
+          console.log('am from coupon sucesssss')
+          setCouponStatus('Coupon applied successfully', document.getElementById('sCouponMsg'), 'green');
+          console.log('Discount Amount:', couponData.discountAmt);
+          console.log('New Total:', couponData.newTotal);
+          console.log('Discount:', couponData.discount);
+          console.log("Coupon Code addedSuccessfully")
+
+        
+
+          // Update the new total
+          document.getElementById('new_total').innerHTML = `<strong>${couponData.newTotal}</strong>`;
+          subTotal = Number(couponData.newTotal);
+          console.log(subTotal, "subtotal from newtotal");
+
+
+
+          // Update the content of the coupon code and discount amount spans
+          document.getElementById('coupon_code').querySelector('small').innerHTML = `<small>${couponVal}</small>`;
+          document.querySelector('#discount_amt').innerHTML = `<span class="text-success">-₹${couponData.discountAmt}</span>`;
+          document.getElementById('subTotal').value = couponData.newTotal
+
+        }
+      
+      
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    
+  
+
+</script>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+<%- include('../layouts/footer.ejs') -%>

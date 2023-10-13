@@ -1,0 +1,39 @@
+
+
+
+
+    <div style="width: 80%; margin: 0 auto;">
+        <canvas id="adminChart"></canvas>
+    </div>
+
+    <script>
+        // Dummy data for demonstration
+        const data = {
+            labels: ['January', 'February', 'March', 'April', 'May'],
+            datasets: [{
+                label: 'Admin Data',
+                data: [12, 19, 3, 5, 2],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        // Get the canvas element
+        const ctx = document.getElementById('adminChart').getContext('2d');
+
+        // Create the chart
+        const adminChart = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+

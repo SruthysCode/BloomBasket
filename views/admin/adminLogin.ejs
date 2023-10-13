@@ -1,0 +1,47 @@
+
+<%- include('../layouts/adminheader.ejs') -%>
+
+<div class="text-center center-div container-fluid p-5"  id="login">
+
+  <div class="container shadow p-3 mb-5 bg-body rounded w-25 border py-5">
+      <h1>Login</h1>
+      <br>
+      <% 
+      if(typeof message!=='undefined'){
+          %>
+
+          <!-- <h4><%=message %></h4> -->
+          <%
+      }
+      %>
+      <form action="" method="post">
+
+          <input type="email" name="email"  required placeholder="Email">
+          <br>
+          <br>
+          <input type="password" required name="password" placeholder="Password">
+          <br>
+          <br>
+          <input type="submit" class="btn btn-success " value="Login">
+          <br>
+          <br>
+          
+      </form>
+  </div>
+</div>    
+
+<!-- 
+  <p>
+  </p>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a href="#" class="card-link">Add To Cart</a>
+      <a href="#" class="card-link">
+      </a>
+    </div>
+  </div> -->
+
+<%- include('../layouts/footer.ejs') -%>

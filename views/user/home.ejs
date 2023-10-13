@@ -1,0 +1,101 @@
+
+<%- include('../layouts/userheader.ejs') -%>
+<!-- <div class="p-5"> 
+  <div class="rounded-circle border d-flex justify-content-center align-items-center"
+       style="width:100px;height:100px"
+    alt="Avatar">
+  <i class="fas fa-user-alt fa-3x text-info"></i>
+  </div> 
+
+</div>-->
+<div class="container">
+  <br>
+  <div class="row m-2 d-flex flex-row">
+    <br>   
+    <div class="card-deck" style="display: flex;  flex-wrap: wrap; gap: 18px ;"></div>
+    
+      <% if(product.length>0)
+      {
+        for(let i=0;i<product.length; ++i)
+        {%>
+ 
+          <div class="card mt-3" style="width: 19rem; margin:4px ;">
+            <img src="/static/productimages/<%= product[i].image[0] %>" class="card-img-top" style="height: 20rem;" alt="<%= product[i].name %>"/>
+            <div class="card-body">
+              <h5 class="card-title"><%= product[i].name %></h5>
+              <h6 class="card-subtitle mb-2 text-muted"><%= product[i].category %></h6>
+              <p class="card-text"><%= product[i].description %></p>
+              <ul class="list">
+              <h6> <li class="list-group-item px-3">Price : &#8377 <%= product[i].price %></li></h6>
+                </ul>
+                
+                 <div style="display: inline-block;">
+                   
+                  <form action="/addtocart" method="POST">
+                    <input type="hidden" name="id" value="<%= product[i]._id %>">
+                    <% 
+                    if( product[i].stock>0)
+                    {
+                    %>
+                    <button type="submit" class="btn btn-success btn-sm btn-rounded">Add To Cart</button>  
+                    <%
+                    }
+                    else
+                    {
+                      %>
+                      <button type="submit" class="btn btn-success btn-sm btn-rounded" disabled >Out of Stock</button>  
+                    
+                      <%
+                    }
+
+                    %>
+                  
+                   <a href="/viewproductdetails?id=<%= product[i]._id %>" class="btn btn-success btn-sm btn-rounded">View Details</a>              
+                  </form>     
+                  <%= message.success %>    
+                </div>
+            </div>
+          </div>
+        <%
+        }
+      }
+      else{
+          %>
+          <div class="card" style="width: 38rem">
+
+            <h4>No Products</h4>
+          </div>
+
+       <% } %>  
+       <div style="display: flex; flex-direction:row; margin-right:6 px">
+        <%
+          for(let j=1; j<=totalPages;j++)
+          {
+            %>
+            <a style="padding:2px" href="?page=<%= j %>"><%= j %></a>
+            <%
+          } 
+        %>
+      </div>
+        </div>
+     </div>
+   </div>
+</div>
+
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast-header">
+    <img src="..." class="rounded mr-2" alt="...">
+    <strong class="mr-auto">Bootstrap</strong>
+    <small>11 mins ago</small>
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Hello, world! This is a toast message.
+  </div>
+</div>
+
+
+<%- include('../layouts/footer.ejs') -%>
+

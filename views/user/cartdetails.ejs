@@ -1,0 +1,289 @@
+<%- include('../layouts/userheader.ejs') -%>
+
+
+  <div class="container p-5">
+    <div class="row shadow p-3 mb-5 bg-body rounded">
+      <form id="formCart" action="/cart" method="post">
+        <!-- <section class="h-100" style="background-color: #b5f3d3;"> -->
+        <div class="container h-100 py-5">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-10">
+
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
+                <div>
+                  <!-- <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!" class="text-body">price <i
+                      class="bis fa-angle-down mt-1"></i></a></p>
+                       -->
+                  <input type="hidden" value="<%= user %>" name="user_id" id="userid">
+                  <input type="hidden" value="<%= cart %>" name="cart_id" id="cartid">
+                </div>
+              </div>
+
+              <% if(cart.length>0)
+                {
+                for(let i=0;i<cart.length; ++i) { %>
+                  <div class="card rounded-3 mb-4">
+                    <div class="card-body p-4">
+                      <div class="row d-flex justify-content-between align-items-center ">
+                        <div class="col-md-2 col-lg-2 col-xl-2">
+                          <img src="/static/productimages/<%=cart[i].product.image[0] %>"
+                            style="width: 75px; height: 75px" class="img-fluid rounded-3"
+                            alt="<%= cart[i].product.name %>">
+                        </div>
+
+                        <!-- quantity change using function jquery -->
+                        <div class="col-md-2 col-lg-3 col-xl-3">
+                          <p class="lead fw-normal mb-2">
+                            <%= cart[i].product.name %>
+                          </p>
+
+                          <p><span class="text-muted">
+                              <%= cart[i].product.category %>
+                            </span> <span class="text-muted"> </span></p>
+                        </div>
+                        <input type="hidden" name="productId[]" value="<%= cart[i].product._id %>">
+                        <div class="col-md-2 col-lg-3 col-xl-2 d-flex">
+                          <button class="btn btn-link px-2 decrement"
+                            onclick="totalPrice('<%= cart[i].product._id %>','dec')">
+                            <i class="bi bi-dash-lg"></i>
+                          </button>
+                          <input id="<%= cart[i].product._id %>" name="quantity" value="<%= cart[i].qty %>" type="text"
+                            inputmode="numeric" class="form-control form-control-sm" disabled>
+                          <button class="btn btn-link px-2 increment"
+                            onclick="totalPrice('<%= cart[i].product._id %>','inc','<%= cart[i].product.stock %>')">
+                            <i class="bi bi-plus-lg"></i>
+                          </button>
+                          <!-- <h5 id='qty' class="mb-2">qty</h5> -->
+                          <div>
+                            <h5 class="mb-2"><span name="price" value="<%= cart[i].product.price %>">
+                                <%= cart[i].product.price %>
+                              </span></h5>
+                          </div>
+
+                        </div>
+
+                        <!-- ajax html area -->
+
+                        <!-- <div class="col-md-2 col-lg-3 col-xl-3">
+                    <p class="lead fw-normal mb-2"><%= cart[i].product.name %> </p>
+                    <p><span class="text-muted"> <%= cart[i].product.category %></span> <span class="text-muted"> </span></p>
+                  </div>
+                  <input type="hidden" name="productId" value="<%= cart[i].product %>">               
+                  <div class="col-md-2 col-lg-3 col-xl-2 d-flex">
+                    <button class="btn btn-link px-2 decrement"
+                    onclick="totalPrice('<%= cart %>','<%= cart[i].product._id %>','<%= user %>',-1)">
+                      <i class="bi bi-dash-lg"></i>
+                    </button>                    
+                    <input disabled="" id="<%= cart[i].product._id %>" name="quantity" value="<%= cart[i].qty %>" type="number"
+                      class="form-control form-control-sm"/>
+                    <button class="btn btn-link px-2 increment" 
+                    onclick="totalPrice('<%= cart %>','<%= cart[i].product._id %>','<%= user %>',1)">
+                      <i class="bi bi-plus-lg"></i>
+                    </button>
+                    <h5 id='qty' class="mb-2">qty</h5>
+                  </div>
+                   -->
+
+
+                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1 d-flex ">
+                          <div>
+                            <!-- <h5  class="mb-2" ><span name="price" value="<%= cart[i].product.price %>"><%= cart[i].product.price %></span></h5> -->
+                            <h5 id='total' class="mb-0"><span id="proTotal" name="productTotal"
+                                value="<%= cart[i].product.price * cart[i].qty %>">
+                                <%= cart[i].product.price * cart[i].qty %>
+                              </span></h5>
+                          </div>
+                        </div>
+
+                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                          <input type="hidden" name="productId" value="<%= cart[i].product._id %>">
+                          <input type="hidden" id="pid<%=i%>" name="pname<%=i%>" value="<%= cart[i].product._id %>">
+
+                          <a onclick="removeCartalert('<%= i %>')" class="btn btn-outline-success btn-sm m-0"> <i
+                              class="bi bi-trash "></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <% } } else { %>
+                    <div class="card rounded-3 mb-4">
+                      <div class="card-body p-4">
+                        <div class="row d-flex justify-content-between align-items-center">
+                          <h5>No Products </h5>
+                        </div>
+                      </div>
+                    </div>
+
+                    <% } %>
+
+                      <div class="card mb-4">
+                        <div class="card-body p-4 d-flex flex-row">
+                          <div class="form-outline flex-fill">
+                            <h4 style="float: right; margin-right: 200px ">Total Amount : &nbsp;&nbsp;
+                              ₹ <span id="total" name="totalSum" class="column-5" value="<%= totalSum %>">
+                                <%= totalSum %>
+                              </span></h4>
+                          </div>
+                        </div>
+                      </div>
+                      <!--  -->
+                      <!-- <div class="card mb-4">
+              <div class="card-body p-4 d-flex flex-row">
+                <div class="form-outline flex-fill">
+                  <input type="text" id="form1" class="form-control form-control-lg" />
+                  <label class="form-label" for="form1">Discound code</label>
+                </div>
+                <button type="button" class="btn btn-outline-warning btn-lg ms-3">Apply</button>
+              </div>
+            </div> -->
+                      <!--  -->
+                      <div class="card">
+                        <div class="card-body">
+                          <% if(totalSum<=0)
+                          {
+                           %>
+                           <button class="btn btn-success btn-block btn-lg " style="width: 25%;" disabled >Proceed to Pay                          
+                           </button>
+ 
+                           
+                          <%
+                          }
+                           else
+                          {
+                          %>
+                         
+                          <button class="btn btn-success btn-block btn-lg " style="width: 25%;" >Proceed to Pay
+                            
+                          </button>
+                          <%
+                          }
+                          %>
+
+                          
+                        </div>
+                      </div>
+
+            </div>
+          </div>
+        </div>
+        </section>
+
+      </form>
+    </div>
+  </div>
+  <script>
+
+    const totalPrice = async (id, act, stock) => {
+      event.preventDefault()
+      console.log(" inside totalprice ")
+      console.log(id, act, stock)
+      const elem = document.getElementById(id)
+      const currentValue = Number(elem.value);
+      if (act == 'inc' && currentValue < stock) {
+        elem.value = currentValue + 1
+      } else if (act == 'dec' && currentValue > 1) {
+        elem.value = currentValue - 1
+      } else if (act === 'dec' && currentValue === 1) {
+        // Show a SweetAlert when the quantity is already at the minimum
+        Swal.fire({
+          icon: 'info',
+          title: 'Bloom Basket',
+          text: 'You have to choose at least 1 quantity.',
+        });
+        return false;
+      } else if (act === 'inc' && currentValue >= stock) {
+        // Show a SweetAlert when the quantity exceeds the stock
+        Swal.fire({
+          icon: 'warning',
+          title: 'Bloom Basket',
+          text: `You cannot add more than ${stock} items.`,
+        });
+        return true;
+      }
+
+      let subTotal = 0
+      let datas = []
+      let length = document.getElementsByName('productTotal').length
+      console.log("length is :" + length)
+      for (let i = 0; i < length; i++) {
+        document.getElementsByName('productTotal')[i].innerText = Number(document.getElementsByName('quantity')[i].value) * Number(document.getElementsByName('price')[i].textContent)
+        subTotal = subTotal + Number(document.getElementsByName('productTotal')[i].innerText)
+        console.log("sub total is :" + subTotal)
+        datas.push({
+          id: document.getElementsByName('productId')[i].value,
+          quantity: Number(document.getElementsByName('quantity')[i].value)
+        })
+        console.log(datas)
+      }
+      document.getElementsByName('totalSum')[0].textContent = subTotal
+      let data = await fetch('/cart-updation', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          datas
+        })
+      })
+      let Data = await data.json()
+    }
+
+
+    // remove cart alert first called, then remove product
+    const removeCartalert = async (id) => {
+      console.log("im clicked -removedel" + id + 'pid' + id + " " + 'pname' + id)
+      const proid = document.getElementById('pid' + id).value
+      const userid = document.getElementById('userid').value
+      console.log("pid is " + proid + " cart is :" + cartid)
+
+
+      // Display a SweetAlert dialog
+      const result = await Swal.fire({
+        title: 'Bloom Basket',
+        text: 'Do you want to remove this product from cart?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+
+      });
+
+      if (result.isConfirmed) {
+        console.log("will dekleteeeeeeeeee" + proid, userid)
+        removeFromCart(proid, userid)
+        console.log("after rmfrmcart ejs aftere ")
+      }
+
+    }
+
+    // remove a product from cart    
+    const removeFromCart = async (proId, userId) => {
+      console.log("in remfrmcartin ejs " + proId, userId)
+      const response = await fetch(`/remove?proId=${proId}&userId=${userId}`, {
+        method: 'GET',
+        headers: {
+          //	'Content-Type': "application/json",
+        },
+      })
+
+      const data = await response.json()
+      console.log(data)
+      await Swal.fire({
+        icon: 'success',
+        title: 'Bloom Basket',
+        text: 'Item Removed from cart!',
+        confirmButtonText: 'OK',
+      });
+      //	document.getElementById('row' + proId).innerHTML = ''
+      // Automatically reload the page after the item is removed
+      window.location.reload();
+    }
+
+    if (blocked) {
+      Swal("blocked", "you are blocked", "success")
+    }
+
+  </script>
+  <%- include('../layouts/footer.ejs') -%>

@@ -1,0 +1,140 @@
+<%- include('../layouts/adminheader.ejs') -%>
+
+
+  <!-- <h1>Orders</h1> -->
+  <br>
+
+  <div class="container">
+    <div class="row shadow p-3 mb-5 bg-body rounded">
+      <table class="table align-middle table-hover mb-0 bg-white" id="orders">
+
+        <thead class="bg-light">
+          <tr>
+            <th>Order</th>
+            <th>Customer</th>
+            <th>Address</th>
+            <th>Status</th>
+            <th>Amount</th>
+            <th>Actions</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <% if(order.length>0)
+          { for(let i=0; i<order.length;++i) { %>
+            <tbody>
+              <tr>
+                <div class="d-flex justify-content-between">
+    
+                <td>
+                  <%= ord_details[i].date %>
+                </td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="ms-3">
+                      <p class="fw-bold mb-1">
+                        <%= order[i].user_id.name %>
+                      </p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <p class="fw-normal mb-1">
+                    <%= ord_details[i].address %>
+                  </p>
+                </td>
+                <td>
+                  <%= ord_details[i].orderstatus %>
+                </td>
+                <td>₹ <%= ord_details[i].amount %>
+                </td>
+                <td>
+                  <!-- Edit status button -->
+                  <form method="get" action="/admin/edit-order/">
+                    <input type="hidden" name="id" value="<%= order[i]._id %>">
+                    <button type="submit" class="btn btn-success btn-sm btn-rounded">
+                      Edit
+                    </button>
+                  </form>
+                </td>
+                <td>
+                  <!-- Delete button -->
+               
+                  <a href="/admin/delete-order?id=<%= order[i]._id %>" onclick="removealert(event)" type="button"
+                    class="btn btn-success btn-sm btn-rounded"> Delete  
+                  </a>
+                 
+
+                </td>
+                <%}%>
+
+              </div>
+              </tr>
+              <% } else { %>
+                <tr>
+                  <td>
+                    NO Orders to display
+                  </td>
+                </tr>
+
+                <%} %>
+            </tbody>
+      </table>
+      <a href="/admin/home">
+        <p><button type="button" style=" border-radius: 50px;" class="btn btn-success">
+            << Back</button>
+        </p>
+      </a>
+    </div>
+  </div>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#orders').DataTable();
+    });
+
+  </script>
+
+  <script>
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+      // Your code to run when the form loads
+      // alert("Form has loaded!");
+      const message = "<%= message %>"
+      if (message) {
+        console.log("Message is there")
+        Swal.fire("Success", message, "success");
+      }
+    });
+
+  </script>
+
+  
+<script>
+
+  function removealert(e)
+  {
+  e.preventDefault();
+
+  // Display a SweetAlert dialog
+ Swal.fire({
+    title: 'Bloom Basket',
+    text: 'Do you want to Delete this Order?',
+    icon: 'question',		
+    showCancelButton: true,		
+    confirmButtonText: 'Yes',
+    cancelButtonText: 'No'
+    
+  }).then((result)=>{
+    if (result.isConfirmed) {
+      window.location.href = e.target.href;
+  }
+  })
+}
+
+</script>
+
+  <%- include('../layouts/footer.ejs') -%>

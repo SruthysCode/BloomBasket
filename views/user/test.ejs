@@ -1,0 +1,47 @@
+
+<label for="" name="time" id="time">time</label>
+
+<button name="resend" style="visibility: hidden;">
+    Resend OTP
+</button>
+
+
+<script src="https://path-to-jquery"></script>
+<script src="/javascripts/website.js"></script>
+
+<script>
+
+    
+var countDown = new Date("sep 11, 2023 22:24:00").getTime();
+document.getElementsById("resend").style.visibility=hidden
+
+  
+//update the count down in every 1 second
+var update = setInterval(function () {
+
+   // get the today's date and time
+   var now = new Date().getTime();
+ 
+   //find the difference b/w countDown and now
+   var diff = countDown - now;
+ 
+   //now we are calculating time in days, hrs, minutes, and seconds.
+ 
+   var minutes = Math.floor((diff % (1000 * 60 *4)) / (1000 * 60));
+   var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+ 
+   //now output the result in an element with id ="time"
+   document.getElementById("time").innerHTML =
+   minutes + ": " + seconds ;
+   if (diff < 0) {
+      clearInterval(update);
+      document.getElementById("time").innerHTML = "Expired";
+      document.getElementById('resend').style.visibility = 'visible';
+   }
+}, 1000);
+</script>
+
+function previewImages(event)
+{
+   
+}

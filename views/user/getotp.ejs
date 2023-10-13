@@ -1,0 +1,94 @@
+<%- include('../layouts/userheader.ejs') -%>
+<br>
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="card d-flex justify-content-center align-items-center" style="width: 300px;">
+            <!-- <div class="card-header h5 text-white bg-success">Enter Otp</div> -->
+            <div class="card-body px-5">
+                <form class="otp-form" action="" method="post">
+                <div class="form-outline">
+                    <label class="form-label" for="typeEmail">OTP</label>
+                    <input type="text" id="otp" name="otp" class="form-control my-1" required placeholder="Enter OTP"/>
+                    <input type="hidden" id="user_id" name="user_id" class="form-control my-3" value="<%= user_id %>"/>
+                </div>
+            
+               <br><br>
+                <button type="submit" id="verify_otp" class="btn btn-success w-100 btn-lg">Verify</button>
+
+              </form>
+ 
+              <form action="" method="post">
+                <input type="hidden" id="user_id" name="user_id" class="form-control my-3" value="<%= user_id %>"/>
+              <button type="submit" id="resend_otp" class="btn btn-success w-100 btn-lg" style="display: none;">
+                 <a href="/resendotp?<%= user_id %>">
+                Resend OTP</a> </button>
+              
+            </form>
+              <br>
+              <p id="countdown">Time remaining: <span id="timer">60</span> </p>
+
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+
+<!-- Script for resend with countdown timer -->
+<script>
+    let seconds = 60;
+    const countdown = document.getElementById('timer');
+    const button = document.getElementById('resend_otp');
+    const button1 = document.getElementById('verify_otp');
+    const updateTimer = () => {
+      countdown.textContent = seconds;
+      seconds--;
+      if (seconds < 0) {
+        clearInterval(interval);
+        countdown.textContent = 'Time expired';
+        
+        button.style.display = 'block';
+        button1.style.display = 'none';
+        document.getElementById(otpObject.id).textContent = otpObject.otp;
+        otpObject.otp = 0
+        
+      }
+    };
+
+    const interval = setInterval(updateTimer, 1000);
+
+   </script>
+
+
+<!-- Script for invalid OTP -->
+    
+    <script>
+        $(document).ready(function() {
+            $('#otp-form').submit(function(e) {
+                e.preventDefault();
+
+                const otp = $('#otp').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/verify-otp',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ otp: otp }),
+                    success: function(data) {
+                        if (data.success) {
+                            // OTP is valid, perform further actions
+                            alert('OTP is valid');
+                        } else {
+                            // OTP is invalid, show an alert box with the error message
+                            alert(data.message);
+                        }
+                    },
+                    error: function(error) {
+                        console.error('Error:', error);
+                    }
+                });
+            });
+        });
+    </script>
+
+
+<%- include('../layouts/footer.ejs') -%>

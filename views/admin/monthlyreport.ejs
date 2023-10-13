@@ -1,0 +1,90 @@
+
+
+<%- include('../layouts/adminheader.ejs') -%>
+
+
+<div class="content">
+<%
+if(monthlyOrders)
+{
+    %>
+<div>
+<a class="btn btn-secondary ml-3 m-3" href="/admin/monthlyreport/download">Download xlsx</a>
+<button class="btn btn-success ml-3 m-3" onclick="printPage()">Print</button>
+</div>
+<div class="container mt-3">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Total Order</th>
+                <th scope="col"></th>
+                <th scope="col">Total Revenue</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><%= monthlyOrders.length %></td>
+                <td></td>
+                <td><%= totalMonthlyBill %></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">ORDER ID</th>
+                <th scope="col">ORDER DATE</th>              
+                <th scope="col">TOTAL BILL</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <%
+            for(let i=0;i<monthlyOrders.length;++i)
+            {
+                %> 
+            <tr>
+                <% const dateString = monthlyOrders[i].date 
+                                      
+                const date = new Date(dateString)
+                const day = date.getDate().toString().padStart(2, '0')
+                const month = (date.getMonth() + 1).toString().padStart(2, '0')
+                const year = date.getFullYear()
+                const formattedDate = `${day}-${month}-${year}`
+                %>
+
+                <td><%= monthlyOrders[i]._id %></td>
+                <td><%= formattedDate %></td>             
+                <td><%= monthlyOrders[i].amount %></td>
+            </tr>
+            <%
+            }
+            %>
+        </tbody>
+    </table>
+</div>
+ <% 
+}
+else
+{
+    %>
+ <div class="container p-5">
+    <div>
+        <h2>Nothing Here..</h2>
+    </div>
+<% } %>
+ </div>
+
+<script>
+    function printPage() {
+  window.print();
+}
+
+</script>
+</div>
+
+
+
+<%- include('../layouts/footer.ejs') -%>
+

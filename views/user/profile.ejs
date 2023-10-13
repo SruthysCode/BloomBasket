@@ -1,0 +1,181 @@
+
+<%- include('../layouts/userheader.ejs') -%>
+
+
+ <div class=" center-div container-fluid p-5 px-0 "  id="login">
+  <div class="container shadow p-3 mb-5 bg-body rounded  border py-5">
+   <div class="row ">
+    <div class="d-flex align-items-start">
+      <!-- <div class="col-12 col-sm-3"> --> 
+        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#profile" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true" >Profile</button>
+          <button class="nav-link" id="v-pills-editprofile-tab" data-bs-toggle="pill" data-bs-target="#edit-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Edit Profile</button>
+          <button class="nav-link" id="v-pills-address-tab" data-bs-toggle="pill" data-bs-target="#add-address" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Add Address</button>
+          <button class="nav-link" id="v-pills-password-tab" data-bs-toggle="pill" data-bs-target="#change-password" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Change Password</button>
+          <button class="nav-link" id="v-pills-order-tab" data-bs-toggle="pill" data-bs-target="#show-order" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Show Orders</button>
+        </div>
+        <div class="tab-content shadow p-3 mb-5 bg-body rounded" id="v-pills-tabContent" style="width: 100%;">
+          <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"
+            style="width: 700px;">
+            <div class="col-lg-12">
+              <div class="card m-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-9">
+                      <p class="mb-0">Name</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">
+                        <%= user.name %>
+                      </p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-9">
+                      <p class="mb-0">Email</p>
+                    </div>
+                    <div class="col-sm-12">
+                      <p class="text-muted mb-0">
+                        <%= user.email %>
+                      </p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-9">
+                      <p class="mb-0">Mobile</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">
+                        <%= user.mobile%>
+                      </p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-9">
+                      <p class="mb-0">Wallet Balance</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">&#8377 <%= user.wallet%>
+                      </p>
+                    </div>
+                  </div>
+
+                  <hr>
+                  <% for(let i=0; i<address[0].address.length;++i) { %>
+                    <div class="row">
+                      <div class="col-sm-9">
+                        <p class="mb-0">Address <%= i+1 %>
+                        </p>
+                      </div>
+                      <div class="col-sm-9">
+                        <p class="text-muted mb-0">
+                          <%= address[0].address[i] %>
+                        </p>
+
+                      </div>
+                      <hr>
+                    </div>
+                    <% } %>
+                </div>
+              </div>
+            </div>
+            <!-- </div> -->
+          </div>
+          <div class="tab-pane fade" id="edit-profile" role="tabpanel" aria-labelledby="v-pills-editprofile-tab"
+            style="width: 700px;">
+            <div class=" center-div container-fluid p-5">
+              <!-- <div class="container   border py-5"> -->
+              <form action="/editprofile" method="post">
+                <div class="" style="display: inline-block;">
+                  <div class="flex-grow-1">
+                    <div class="row">
+                      <label for="formGroupExampleInput">Name </label>
+                      <input type="text" class="form-control mb-2" id="formGroupExampleInput" name="name" placeholder=""
+                        value="<%= user.name %>">
+                      <input type="hidden" class="form-control" id="formGroupExampleInput0" name="id" placeholder=""
+                        value="<%= user._id %>">          
+                    </div>
+                    <div class="row" style="display: inline-block;">
+                      <% for(let i=0; i<address[0].address.length;++i) { %>          
+                        <div class="row mb-2">
+                          <label for="formGroupExampleInput2">Address<%= i+1 %></label>
+                          <textarea name="address<%= i %>" id="address<%= i %>" cols="70"
+                            rows="3"><%= address[0].address[i] %></textarea>
+                        </div>          
+                        <% } %>
+                    </div>
+                    <div class="row">
+                      <label for="formGroupExampleInput2">Email</label>
+                      <input type="text" class="form-control mb-2" id="formGroupExampleInput2" name="email" placeholder=""
+                        value="<%= user.email %>" disabled>
+                    </div>          
+                    <div class="row">
+                      <label for="formGroupExampleInput2">Mobile</label>
+                      <input type="text" class="form-control mb-0 " id="formGroupExampleInput2" name="mobile" placeholder=""
+                        value="<%= user.mobile %>">
+                    </div>          
+                  </div>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-success m-3">Update</button>
+              </form>
+            </div>
+          </div>
+          
+          <div class="tab-pane fade" id="add-address" role="tabpanel" aria-labelledby="v-pills-address-tab" style="width: 700px;">         
+            <div class="center-div container-fluid p-5">          
+              <div class=" container shadow p-3 mb-5 bg-body rounded border py-5">
+                <form action="/add-address" method="post">
+                  <div class="d-flex">
+                    <div class="flex-grow-1">
+                      <div class="row">
+                        <input type="hidden" class="form-control m-3" id="formGroupExampleInput2" name="id" placeholder="" 
+                          value="<%= user._id%>">
+                        <label  for="formGroupExampleInput2">New Address</label>
+                        <textarea name="address" id="" cols="10" rows="3" style="width: 90%; margin:20px"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <button type="submit" class="btn btn-success">Add Address</button>
+                </form>
+              </div>
+            </div>          
+          </div>
+          <div class="tab-pane fade" id="change-password" role="tabpanel" aria-labelledby="v-pills-password-tab">Change Password
+            <div class=" center-div container-fluid p-5">
+              <div class=" container shadow p-3 mb-5 bg-body rounded border py-5" style="width: 700px;">
+                <form action="/change-password" method="post">
+                  <div class="d-flex">
+                    <div class="flex-grow-1">
+                      <div class="form-group" style="width: 300px;">
+                        <input type="hidden" class="form-control" id="formGroupExampleInput2" name="id" placeholder=""
+                          value="<%= user._id%>">
+                        <label for="formGroupExampleInput2">New Password</label>
+                        <input type="password" class="form-control" id="formGroupExampleInput2" name="password" placeholder=""
+                          required:true>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <button type="submit" class="btn btn-success">Update Password</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="show-order" role="tabpanel" aria-labelledby="v-pills-order-tab">Show Orders
+            <!-- order start -->
+            <a href="/view-orders">
+              <button type="button" class="btn btn-success">View Orders</button>
+            </a>
+            <!-- order end -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('../layouts/footer.ejs') -%>

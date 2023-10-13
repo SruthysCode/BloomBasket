@@ -1,0 +1,121 @@
+
+<%- include('../layouts/userheader.ejs') -%>
+
+<section class="vh-100">
+    <div class="container-fluid h-custom p-5" >
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-9 col-lg-6 col-xl-5">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+            class="img-fluid" alt="Sample image">
+        </div>
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+          <form action="/login" method="post">
+            <div class="shadow-lg p-3 mb-5 bg-white rounded">
+
+            <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+              <p class="lead fw-normal mb-0 me-3">Log in</p>
+              <button type="button" class="btn btn-success btn-floating mx-1">
+                <i class="fab fa-facebook-f"></i>
+              </button>
+  
+              <button type="button" class="btn btn-success btn-floating mx-1">
+                <i class="fab fa-twitter"></i>
+              </button>
+  
+              <button type="button" class="btn btn-success btn-floating mx-1">
+                <i class="fab fa-linkedin-in"></i>
+              </button>
+            </div>
+  
+            <div class="divider d-flex align-items-center my-4">
+              <p class="text-center fw-bold mx-3 mb-0"></p>
+            </div>
+            <div class="row m-3" style="display:inline-block;">
+            <!-- Email input -->
+            
+            <div class="form-outline mb-4">
+              <label class="form-label" for="form3Example3">Email address</label>
+              <br>
+              <input  type="email" id="form3Example3" name="email" class="form-control form-control-lg border"
+                placeholder="Enter a valid email address" style="border: 4px;" required />
+              <span id="emailError" style="color: red;"></span> 
+            </div>
+  
+            <!-- Password input -->
+            <div class="form-outline mb-3">
+              <label class="form-label" for="form3Example4">Password</label>
+             <br>
+              <input type="password" id="form3Example4" name="password" class="form-control form-control-lg border"
+                placeholder="Enter password"  required/>
+              <span id="passwordError" style="color: red;"></span>
+            </div>
+  
+           
+          </div>
+  
+            <div class="d-flex justify-content-between align-items-center">
+            <p><a href="/forgot-password" class="text-primary">Forgot password?</a></p>
+            </div>
+  
+            <div class="text-center text-lg-start mt-4 pt-2">
+              <button type="submit" class="btn btn-success btn-lg"
+                style="padding-left: 2.5rem; padding-right: 2.5rem;">Log in</button>
+              <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/signup"
+                  class="link-success">Sign In</a></p>
+            </div>
+            <p style="color: rgb(245, 40, 40)"><%= message %></p>
+  
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+      </section>
+
+
+
+      <script>
+
+        
+function isValidEmail(email) {
+
+  const emailPattern = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+  return emailPattern.test(email);
+}
+
+$(document).ready(function () {
+  $('form').on('submit', function (event) {
+    event.preventDefault();     
+    const email = $('#form3Example3').val();
+    const password = $('#form3Example4').val();
+      let isValid = true;    
+    if (!email) {
+      isValid = false;
+      $('#emailError').text('Email is required');
+    } else if (!isValidEmail(email)) {
+      isValid = false;
+      $('#emailError').text('Invalid email address');
+    } else {
+      $('#emailError').text('');
+    }
+
+    if (!password) {
+      isValid = false;
+      $('#passwordError').text('Password is required');
+    } else {
+      $('#passwordError').text('');
+    }
+
+    if (isValid) {
+      this.submit();
+    }
+  });
+});
+ </script>
+      
+
+  <%- include('../layouts/footer.ejs') -%>
+
+  #input{
+    border: 4px
+  }
