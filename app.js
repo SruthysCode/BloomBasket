@@ -1,7 +1,8 @@
-require('dotenv').config();
 
+const env = require('dotenv')
+env.config()
 const mongoose=require("mongoose")
-mongoose.connect(process.env.MONGO_URL)
+mongoose.connect(process.env.MONGO_URL,{dbName: 'bloomBasket'})
 
 const express=require('express')
 var app= express()

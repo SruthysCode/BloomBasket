@@ -14,8 +14,8 @@ const storage= multer.diskStorage({
 
 // mongodb
 
-const mongoose=require("mongoose")
-mongoose.connect("mongodb://127.0.0.1:27017/bloomBASKET")
+// const mongoose=require("mongoose")
+// mongoose.connect("mongodb://127.0.0.1:27017/bloomBASKET")
 
 
 
@@ -31,5 +31,5 @@ module.exports={
 
 		//upload,
 		multer,
-		mongoose,
+		// mongoose,
 }

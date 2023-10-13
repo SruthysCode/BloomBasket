@@ -1,5 +1,5 @@
-const { Redirect } = require("request/lib/redirect")
-const { default: swal } = require("sweetalert")
+// const { Redirect } = require("request/lib/redirect")
+// const { default: swal } = require("sweetalert")
 const User= require('../model/userModel')
 
 const isLogin=async(req,res,next)=>{

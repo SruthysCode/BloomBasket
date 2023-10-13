@@ -33,7 +33,7 @@ user_route.use(express.json())
 user_route.use(express.urlencoded({extended:true}))
 
 const userController=require('../Controller/userController');
-const { cookie } = require('request');
+//const { cookie } = require('request');
 user_route.get('/',nocache(),userController.loadHome)
 
 user_route.get('/signup',auth.isLogout,userController.signUp)
