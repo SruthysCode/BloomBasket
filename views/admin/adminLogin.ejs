@@ -1,36 +1,31 @@
-
 <%- include('../layouts/adminheader.ejs') -%>
 
-<div class="text-center center-div container-fluid p-5"  id="login">
+  <div class="text-center center-div container-fluid p-5" id="login">
 
-  <div class="container shadow p-3 mb-5 bg-body rounded w-25 border py-5">
+    <div class="container shadow p-3 mb-5 bg-body rounded w-25 border py-5">
       <h1>Login</h1>
       <br>
-      <% 
-      if(typeof message!=='undefined'){
-          %>
+      <% if(typeof message!=='undefined' ){ %>
 
-          <!-- <h4><%=message %></h4> -->
-          <%
-      }
-      %>
-      <form action="" method="post">
+        <!-- <h4><%=message %></h4> -->
+        <% } %>
+          <form action="" method="post">
 
-          <input type="email" name="email"  required placeholder="Email">
-          <br>
-          <br>
-          <input type="password" required name="password" placeholder="Password">
-          <br>
-          <br>
-          <input type="submit" class="btn btn-success " value="Login">
-          <br>
-          <br>
-          
-      </form>
+            <input type="email" name="email" required placeholder="Email">
+            <br>
+            <br>
+            <input type="password" required name="password" placeholder="Password">
+            <br>
+            <br>
+            <input type="submit" class="btn btn-success " value="Login">
+            <br>
+            <br>
+
+          </form>
+    </div>
   </div>
-</div>    
 
-<!-- 
+  <!-- 
   <p>
   </p>
   <div class="card" style="width: 18rem;">
@@ -44,4 +39,4 @@
     </div>
   </div> -->
 
-<%- include('../layouts/footer.ejs') -%>
+  <%- include('../layouts/footer.ejs') -%>

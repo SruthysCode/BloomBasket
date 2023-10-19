@@ -24,50 +24,50 @@
             <tbody>
               <tr>
                 <div class="d-flex justify-content-between">
-    
-                <td>
-                  <%= ord_details[i].date %>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <div class="ms-3">
-                      <p class="fw-bold mb-1">
-                        <%= order[i].user_id.name %>
-                      </p>
+
+                  <td>
+                    <%= ord_details[i].date %>
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="ms-3">
+                        <p class="fw-bold mb-1">
+                          <%= order[i].user_id.name %>
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td>
-                  <p class="fw-normal mb-1">
-                    <%= ord_details[i].address %>
-                  </p>
-                </td>
-                <td>
-                  <%= ord_details[i].orderstatus %>
-                </td>
-                <td>₹ <%= ord_details[i].amount %>
-                </td>
-                <td>
-                  <!-- Edit status button -->
-                  <form method="get" action="/admin/edit-order/">
-                    <input type="hidden" name="id" value="<%= order[i]._id %>">
-                    <button type="submit" class="btn btn-success btn-sm btn-rounded">
-                      Edit
-                    </button>
-                  </form>
-                </td>
-                <td>
-                  <!-- Delete button -->
-               
-                  <a href="/admin/delete-order?id=<%= order[i]._id %>" onclick="removealert(event)" type="button"
-                    class="btn btn-success btn-sm btn-rounded"> Delete  
-                  </a>
-                 
+                  </td>
+                  <td>
+                    <p class="fw-normal mb-1">
+                      <%= ord_details[i].address %>
+                    </p>
+                  </td>
+                  <td>
+                    <%= ord_details[i].orderstatus %>
+                  </td>
+                  <td>₹ <%= ord_details[i].amount %>
+                  </td>
+                  <td>
+                    <!-- Edit status button -->
+                    <form method="get" action="/admin/edit-order/">
+                      <input type="hidden" name="id" value="<%= order[i]._id %>">
+                      <button type="submit" class="btn btn-success btn-sm btn-rounded">
+                        Edit
+                      </button>
+                    </form>
+                  </td>
+                  <td>
+                    <!-- Delete button -->
 
-                </td>
-                <%}%>
+                    <a href="/admin/delete-order?id=<%= order[i]._id %>" onclick="removealert(event)" type="button"
+                      class="btn btn-success btn-sm btn-rounded"> Delete
+                    </a>
 
-              </div>
+
+                  </td>
+                  <%}%>
+
+                </div>
               </tr>
               <% } else { %>
                 <tr>
@@ -112,29 +112,28 @@
 
   </script>
 
-  
-<script>
 
-  function removealert(e)
-  {
-  e.preventDefault();
+  <script>
 
-  // Display a SweetAlert dialog
- Swal.fire({
-    title: 'Bloom Basket',
-    text: 'Do you want to Delete this Order?',
-    icon: 'question',		
-    showCancelButton: true,		
-    confirmButtonText: 'Yes',
-    cancelButtonText: 'No'
-    
-  }).then((result)=>{
-    if (result.isConfirmed) {
-      window.location.href = e.target.href;
-  }
-  })
-}
+    function removealert(e) {
+      e.preventDefault();
 
-</script>
+      // Display a SweetAlert dialog
+      Swal.fire({
+        title: 'Bloom Basket',
+        text: 'Do you want to Delete this Order?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = e.target.href;
+        }
+      })
+    }
+
+  </script>
 
   <%- include('../layouts/footer.ejs') -%>

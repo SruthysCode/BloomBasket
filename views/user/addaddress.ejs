@@ -1,85 +1,82 @@
 <%- include('../layouts/userheader.ejs') -%>
 
 
-<div class="container">
+  <div class="container">
     <div class="row">
-        <h4></h4>
+      <h4></h4>
 
-        <div class=" center-div container-fluid p-5"  >
-            
-            <div class="col-md-8 mb-4" style="width: 80%; margin : 0">
-              <div class="card mb-4">
-                <div class="card-header py-3">
-                  <h5 class="mb-0">Billing details</h5>
-                </div>
-                <div class="card-body">                    
-                  <form action="/payment" method="post">
-                    <!-- 2 column grid layout with text inputs for the first and last names -->
-                    <div class="row mb-4">
-                      <div class="col">
-                        <div class="form-outline">
-                          <label class="form-label" for="form7Example1"> Name</label>
-                          <input type="text" id="form7Example1" class="form-control" value="<%= user.name %>" disabled />
-                        </div>
-                      </div>
-                      <!-- <div class="col">
+      <div class=" center-div container-fluid p-5">
+
+        <div class="col-md-8 mb-4" style="width: 80%; margin : 0">
+          <div class="card mb-4">
+            <div class="card-header py-3">
+              <h5 class="mb-0">Billing details</h5>
+            </div>
+            <div class="card-body">
+              <form action="/payment" method="post">
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div class="row mb-4">
+                  <div class="col">
+                    <div class="form-outline">
+                      <label class="form-label" for="form7Example1"> Name</label>
+                      <input type="text" id="form7Example1" class="form-control" value="<%= user.name %>" disabled />
+                    </div>
+                  </div>
+                  <!-- <div class="col">
                         <div class="form-outline">
                           <input type="text" id="form7Example2" class="form-control" />
                           <label class="form-label" for="form7Example2">Last name</label>
                         </div>
                       </div>
                     </div> -->
-          
-                    
-          
-                    <!-- Email input -->
-                    <div class="form-outline mb-4">
-                      <label class="form-label" for="form7Example5">Email</label>
-                      <input type="email" id="form7Example5" class="form-control" value="<%= user.email %>" disabled/>
-                  
-                    </div>
-          
-                    <!-- Number input -->
-                    <div class="form-outline mb-4">
-                      <label class="form-label" for="form7Example6">Phone</label>
-                      <input type="number" id="form7Example6" class="form-control" value="<%= user.mobile %>" disabled />
-                     
-                    </div>
-                    
-                    <!-- Text input -->
-                    <% 
-                      for(let i=0;i<addr.length; ++i )
-                      {
 
-                    %>
+
+
+                  <!-- Email input -->
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form7Example5">Email</label>
+                    <input type="email" id="form7Example5" class="form-control" value="<%= user.email %>" disabled />
+
+                  </div>
+
+                  <!-- Number input -->
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form7Example6">Phone</label>
+                    <input type="number" id="form7Example6" class="form-control" value="<%= user.mobile %>" disabled />
+
+                  </div>
+
+                  <!-- Text input -->
+                  <% for(let i=0;i<addr.length; ++i ) { %>
                     <div class="form-check mb-1">
-                        <input class="form-check-input" type="radio" name="delivery-address" value="<%= addr[i] %>"   id="flexRadioDefault1">
-                        <label class="form-label" for="form7Example4" >Address <%= i+1 %></label>
-                      <textarea   name="address" value="<%= addr[i].address %>" class="form-control"  disabled><%= addr[i] %></textarea>
+                      <input class="form-check-input" type="radio" name="delivery-address" value="<%= addr[i] %>"
+                        id="flexRadioDefault1">
+                      <label class="form-label" for="form7Example4">Address <%= i+1 %></label>
+                      <textarea name="address" value="<%= addr[i].address %>" class="form-control"
+                        disabled><%= addr[i] %></textarea>
                     </div>
-             
-                    <%
-                   }
-                    %>
-                    <div class="form-check mb-5">
-                      <input class="form-check-input" type="radio" name="delivery-address" id="flexRadioDefault2" checked>
-                      <label class="form-check-label" for="flexRadioDefault2">
-                        Deliver to another address
-                      </label>
-                      <textarea class="form-control" id="address-another" name="newaddress" rows="3"></textarea>
-                    </div>
-                    <input type="hidden" name="del-addr">
-                 
-                    <button class="btn btn-success btn-lg btn-block" style="width: 25%;">
+
+                    <% } %>
+                      <div class="form-check mb-5">
+                        <input class="form-check-input" type="radio" name="delivery-address" id="flexRadioDefault2"
+                          checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                          Deliver to another address
+                        </label>
+                        <textarea class="form-control" id="address-another" name="newaddress" rows="3"></textarea>
+                      </div>
+                      <input type="hidden" name="del-addr">
+
+                      <button class="btn btn-success btn-lg btn-block" style="width: 25%;">
                         Make purchase
                       </button>
-                      
-                 </form>
-                </div>
-              </div>
+
+              </form>
             </div>
-            </div>
-<!--           
+          </div>
+        </div>
+      </div>
+      <!--           
             <div class="col-md-4 mb-4">
               <div class="card mb-4">
                 <div class="card-header py-3">
@@ -113,7 +110,7 @@
           </div> -->
 
 
-     <!--
+      <!--
         <div class=" center-div container-fluid p-5" ">
             <div class="container border py-5">
               <form action="/add-address" method="post">
@@ -134,45 +131,44 @@
                  
                 </form>
           </div>    
-          -->   
-    
-</div>
+          -->
 
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
+    </div>
 
-  var addr = document.querySelectorAll('input[name="address-delivery"]')
-  var addressfield= document.getElementsByName("new-address")
-  var tempAddress=""
-  for(var i = 0; i < addr.length; i++) 
-  {
-    addr[i].addEventListener("change", addressHandler);
-  }
-function addressHandler() {
-    if(this.id === "address-another") {
-      addressfield.disabled=false
-    tempAddress=addressfield.value
-  } else {
-    tempAddress = addr[i].value;
-    addressfield.disabled=true
-    }
-    document.getElementsByName('del-addr').value=tempAddress
-}
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
 
-form.addEventListener("submit", function(event) {
-  if (document.querySelector('input[name="delivery-address"]:checked').id === "flexRadioDefault2") {
-    
-    if (newaddress.value.trim() === "") {
-      alert("Please provide a delivery address.");
-      event.preventDefault(); 
-    } else {
-    
-      tempAddress = newaddress.value;
-    }
-  }
-});
+        var addr = document.querySelectorAll('input[name="address-delivery"]')
+        var addressfield = document.getElementsByName("new-address")
+        var tempAddress = ""
+        for (var i = 0; i < addr.length; i++) {
+          addr[i].addEventListener("change", addressHandler);
+        }
+        function addressHandler() {
+          if (this.id === "address-another") {
+            addressfield.disabled = false
+            tempAddress = addressfield.value
+          } else {
+            tempAddress = addr[i].value;
+            addressfield.disabled = true
+          }
+          document.getElementsByName('del-addr').value = tempAddress
+        }
 
-  })
-</script>
+        form.addEventListener("submit", function (event) {
+          if (document.querySelector('input[name="delivery-address"]:checked').id === "flexRadioDefault2") {
 
-<%- include('../layouts/footer.ejs') -%>
+            if (newaddress.value.trim() === "") {
+              alert("Please provide a delivery address.");
+              event.preventDefault();
+            } else {
+
+              tempAddress = newaddress.value;
+            }
+          }
+        });
+
+      })
+    </script>
+
+    <%- include('../layouts/footer.ejs') -%>

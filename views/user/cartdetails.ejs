@@ -141,27 +141,20 @@
                       <!--  -->
                       <div class="card">
                         <div class="card-body">
-                          <% if(totalSum<=0)
-                          {
-                           %>
-                           <button class="btn btn-success btn-block btn-lg " style="width: 25%;" disabled >Proceed to Pay                          
-                           </button>
- 
-                           
-                          <%
-                          }
-                           else
-                          {
-                          %>
-                         
-                          <button class="btn btn-success btn-block btn-lg " style="width: 25%;" >Proceed to Pay
-                            
-                          </button>
-                          <%
-                          }
-                          %>
+                          <% if(totalSum<=0) { %>
+                            <button class="btn btn-success btn-block btn-lg " style="width: 25%;" disabled>Proceed to
+                              Pay
+                            </button>
 
-                          
+
+                            <% } else { %>
+
+                              <button class="btn btn-success btn-block btn-lg " style="width: 25%;">Proceed to Pay
+
+                              </button>
+                              <% } %>
+
+
                         </div>
                       </div>
 

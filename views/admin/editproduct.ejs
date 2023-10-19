@@ -1,120 +1,120 @@
-
-
-
 <%- include('../layouts/adminheader.ejs') -%>
 
 
-<div class="container-fluid p-5 m-2">
-  <div class="container border shadow p-5  bg-body rounded py-5" style="width: 60%">
-    <div class="row border shadow p-2 pb-5 bg-body rounded d-flex"  style="width: 80%;">
-    <form action="" method="post" enctype="multipart/form-data">
-      <div class="mb-3">
-        <label for="typeText" class="form-label">Name</label>
-        <input type="text" id="typeText" name="name" class="form-control" value="<%= product.name %>" />
-        <input type="hidden" id="typeText" name="id" class="form-control" value="<%= product._id %>" />
-      </div>
+  <div class="container-fluid p-5 m-2">
+    <div class="container border shadow p-5  bg-body rounded py-5" style="width: 60%">
+      <div class="row border shadow p-2 pb-5 bg-body rounded d-flex" style="width: 80%;">
+        <form action="" method="post" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label for="typeText" class="form-label">Name</label>
+            <input type="text" id="typeText" name="name" class="form-control" value="<%= product.name %>" />
+            <input type="hidden" id="typeText" name="id" class="form-control" value="<%= product._id %>" />
+          </div>
 
-      <div class="mb-3">
-        <label for="typeText" class="form-label">Price</label>
-        <input type="text" id="typeText" name="price" class="form-control" value="<%= product.price %>" />
-      </div>
+          <div class="mb-3">
+            <label for="typeText" class="form-label">Price</label>
+            <input type="text" id="typeText" name="price" class="form-control" value="<%= product.price %>" />
+          </div>
 
-      <div class="mb-3">
-        <label for="textAreaExample" class="form-label">Description</label>
-        <textarea class="form-control" name="description" id="textAreaExample" rows="4"><%= product.description %></textarea>
-      </div>
+          <div class="mb-3">
+            <label for="textAreaExample" class="form-label">Description</label>
+            <textarea class="form-control" name="description" id="textAreaExample"
+              rows="4"><%= product.description %></textarea>
+          </div>
 
-      <div class="mb-3">
-        <label for="categorySelect" class="form-label">Category</label>
-        <select class="form-select" name="category" id="categorySelect" >
-          <option value="<%= product.category %>"></option>
-          <% for(let i=0; i<category.length; ++i) { %>
-            <option><%= category[i].name %></option>
-          <% } %>
-        </select>
-      </div>
+          <div class="mb-3">
+            <label for="categorySelect" class="form-label">Category</label>
+            <select class="form-select" name="category" id="categorySelect">
+              <option value="<%= product.category %>"></option>
+              <% for(let i=0; i<category.length; ++i) { %>
+                <option>
+                  <%= category[i].name %>
+                </option>
+                <% } %>
+            </select>
+          </div>
 
-      <div class="mb-3">
-        <label for="exampleFormControlFile1" class="form-label">Image</label>
-        <input type="file" class="form-control" name="images" id="exampleFormControlFile1" onchange="previewImages(event);" accept="image/*" multiple>
-      </div>
+          <div class="mb-3">
+            <label for="exampleFormControlFile1" class="form-label">Image</label>
+            <input type="file" class="form-control" name="images" id="exampleFormControlFile1"
+              onchange="previewImages(event);" accept="image/*" multiple>
+          </div>
 
-      <div class="mb-3">
-        <% for(let i=0; i<product.image.length; ++i) { %>
-          <div class="d-flex align-items-center mb-2">
-            <div class="me-2" style="display: inline-block;">
-                <input id="product" type="hidden" style="display: none;" value="<%= product._id %>">
-                <img src="/static/productimages/<%= product.image[i] %>" width="70" height="70" class="img-thumbnail me-2">
-                <input type="button" value="X" onclick="removealert('<%= i %>')" class="btn btn-danger btn-sm">
+          <div class="mb-3">
+            <% for(let i=0; i<product.image.length; ++i) { %>
+              <div class="d-flex align-items-center mb-2">
+                <div class="me-2" style="display: inline-block;">
+                  <input id="product" type="hidden" style="display: none;" value="<%= product._id %>">
+                  <img src="/static/productimages/<%= product.image[i] %>" width="70" height="70"
+                    class="img-thumbnail me-2">
+                  <input type="button" value="X" onclick="removealert('<%= i %>')" class="btn btn-danger btn-sm">
+                </div>
+              </div>
+              <% } %>
+                <hr>
+
+          </div>
+          <div class="container">
+
+            <div class="row" style="display: inline-block;">
+              <img id="preview0" class="img-thumbnail" style="width: 10%; height:20%">
+              <img id="preview1" class="img-thumbnail" style="width: 10%; height:10%">
+              <img id="preview2" class="img-thumbnail" style="width: 10%; height:10%">
             </div>
-        </div>
-        <% } %>
-        <hr>
-        
-        </div>
-        <div class="container">
-         
-        <div class="row" style="display: inline-block;" >
-          <img id="preview0" class="img-thumbnail" style="width: 10%; height:20%" >
-          <img id="preview1" class="img-thumbnail" style="width: 10%; height:10%">
-          <img id="preview2" class="img-thumbnail" style="width: 10%; height:10%">
-        </div>
-        </div>
-      
+          </div>
 
-      <div class="text-center">
-        <button type="submit" class="btn btn-success">Edit</button>
+
+          <div class="text-center">
+            <button type="submit" class="btn btn-success">Edit</button>
+          </div>
+        </form>
       </div>
-    </form>
-   </div> 
+    </div>
   </div>
-</div>
 
-<!-- new code end -->
+  <!-- new code end -->
 
-<script>
-    const removealert=async(id)=>
-    {
-        console.log("to delete",id)
-        const prodid=document.getElementById('product').value
-        console.log(prodid)  
+  <script>
+    const removealert = async (id) => {
+      console.log("to delete", id)
+      const prodid = document.getElementById('product').value
+      console.log(prodid)
 
 
-        const response = await fetch(`/admin/deleteimg?image=${id}&prodid=${prodid}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': "application/json",
-            },
-        })
+      const response = await fetch(`/admin/deleteimg?image=${id}&prodid=${prodid}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': "application/json",
+        },
+      })
 
-        console.log("exiting1111")
-        const data = await response.json()
-        console.log(data)
-        window.location.reload(); 
-        console.log("exiting222222222222222222222222222")   
-   
+      console.log("exiting1111")
+      const data = await response.json()
+      console.log(data)
+      window.location.reload();
+      console.log("exiting222222222222222222222222222")
+
     }
-</script>
+  </script>
 
-<script>
-    
+  <script>
+
     const previewImages = (event) => {
-        const imageFiles = event.target.files;
-        const imageFilesLength = imageFiles.length;
-        if (imageFilesLength > 0) {
+      const imageFiles = event.target.files;
+      const imageFilesLength = imageFiles.length;
+      if (imageFilesLength > 0) {
 
-            for(let i=0;i<imageFilesLength;++i)
-            {
-                const imageSrc = URL.createObjectURL(imageFiles[i]);
-                const imagePreviewElement = document.querySelector("#preview"+i);
-                imagePreviewElement.src = imageSrc;
-                imagePreviewElement.style.display = "inline-block";
-               imagePreviewElement.style.height = "40%";
-            //    imagePreviewElement.style.width = "40%";
-           }
+        for (let i = 0; i < imageFilesLength; ++i) {
+          const imageSrc = URL.createObjectURL(imageFiles[i]);
+          const imagePreviewElement = document.querySelector("#preview" + i);
+          imagePreviewElement.src = imageSrc;
+          imagePreviewElement.style.display = "inline-block";
+          imagePreviewElement.style.height = "40%";
+          //    imagePreviewElement.style.width = "40%";
         }
       }
+    }
 
-</script>
+  </script>
 
-<%- include('../layouts/footer.ejs') -%>
+  <%- include('../layouts/footer.ejs') -%>
