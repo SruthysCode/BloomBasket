@@ -857,7 +857,7 @@ const orderPlaced = async (req, res) => {
 
     var totalamount = 0;
     var products = [];
-    // console.log("..<<" + products, totalamount, cart.length);
+    // console.log(".." + products, totalamount, cart.length);
     for (let i = 0; i < cart.length; ++i) {
       // console.log(cart[i].qty, cart[i].product.price);
       totalamount += cart[i].qty * cart[i].product.price;
@@ -916,10 +916,10 @@ const orderPlaced = async (req, res) => {
 // payment
 const makePayment = async (req, res) => {
   try {
-    // console.log("in payment ");
+     console.log("in payment ");
     // const orderid= req.body.orderid
     // console.log("ord id >>"+ orderid)
-    // console.log(req.body);
+     console.log(req.body);
     const category = await Category.find({});
     const users = await User.findOne({ _id: req.session.user_id })
       .populate("cart.product")

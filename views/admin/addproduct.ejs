@@ -64,11 +64,19 @@
         document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("submit").addEventListener("click", function (event) {
 
+                  // Validation for Description
+                  const nameInput = document.getElementById("name");
+                  const nameValue = nameInput.value.trim()
+                  if ((nameValue.length === 0)|| nameValue.length>15) {
+                      alert("Please enter valid Name.");
+                      event.preventDefault();
+                  }
+  
                 // Validation for Description
                 const descriptionInput = document.getElementById("description");
-                const descriptionValue = descriptionInput.value;
-                if (descriptionValue.length === 0) {
-                    alert("Please enter a description.");
+                const descriptionValue = descriptionInput.value.trim()
+                if ((descriptionValue.length === 0)|| descriptionValue.length>30) {
+                    alert("Please enter valid description.");
                     event.preventDefault();
                 }
 

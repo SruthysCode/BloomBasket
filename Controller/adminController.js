@@ -252,6 +252,10 @@ const addNewuser = async (req, res) => {
     const email = req.body.email;
     const mobile = req.body.mobile;
     // console.log(username, address, email, mobile);
+
+
+
+    
     const user = new User({
       name: username,
       address: address,

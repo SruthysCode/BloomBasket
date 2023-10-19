@@ -33,7 +33,7 @@
                                 </div>
                                 <br>
                                 <div class="form-group text-center">
-                                    <button type="submit" class="btn btn-success rounded">Add Coupon</button>
+                                    <button type="submit" class="btn btn-success rounded" onclick="return validateForm()">Add Coupon</button>
                                 </div>
                             </form>
                         </div>
@@ -43,5 +43,31 @@
 
         </div>
     </div>
+
+    <script>
+        function validateForm() {
+            var couponCode = document.getElementById('coupon-code').value;
+            var discount = document.getElementById('discount').value;
+            var expiryDate = document.getElementById('expiry-date').value;
+            var today = new Date().toISOString().split('T')[0]; // Get today's date in yyyy-mm-dd format
+    
+            if (couponCode.trim() === '' || couponCode.trim().length>7) {
+                alert('Please enter a valid coupon code.');
+                return false; 
+            }
+    
+            if (discount < 0 || discount > 50) {
+                alert('Discount must be between 0% and 50%.');
+                return false; 
+            }
+    
+            if (expiryDate < today) {
+                alert('Expiry date cannot be in the past.');
+                return false; 
+            }
+    
+            return true;
+        }
+    </script>
 
     <%- include('../layouts/footer.ejs') -%>

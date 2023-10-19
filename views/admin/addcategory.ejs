@@ -8,13 +8,17 @@
                 <div class="flex-grow-1">
                     <div class="form-group">
                         <label for="formGroupExampleInput">Category</label>
-                        <input type="text" class="form-control" id="formGroupExampleInput" name="category"
+                        <input type="text" class="form-control" id="catg" name="category"
                             placeholder="">
+                        <span id="catError" style="color: red;"></span>
+                   
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Description</label>
-                        <input type="text" class="form-control" id="formGroupExampleInput2" name="description"
+                        <input type="text" class="form-control" id="desc" name="description"
                             placeholder="">
+                        <span id="descError" style="color: red;"></span>
+                   
                     </div>
                 </div>
             </div>
@@ -23,4 +27,45 @@
         </form>
     </div>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            $('form').on('submit', function (event) {
+              event.preventDefault();
+              const category = ($('#catg').val()).trim()
+              const description = ($('#desc').val()).trim();
+              console.log(category,"asdsd",description)
+
+              let isValid = true;
+              if (!category) {
+                isValid = false;
+                $('#catError').text('Category is required');
+              } else if (category.length>20) {
+                isValid = false;
+                $('#catError').text('Category length is too high');
+              } else {
+                $('#catError').text('');
+              }
+      
+              if (!description) {
+                isValid = false;
+                $('#descError').text('Description is required');
+              } else {
+
+                    if (description.length>20) {
+                        isValid = false;
+                        $('#descError').text('Give small description');
+                    } else {
+                    $('#descError').text('');
+                    }
+              }
+      
+              if (isValid) {
+                this.submit();
+              }
+            });
+          });
+        </script>
+      
+
     <%- include('../layouts/footer.ejs') -%>

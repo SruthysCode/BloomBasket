@@ -44,11 +44,7 @@ user_route.get("/resendotp", userController.resendOtp);
 user_route.get("/login", auth.checkBlocked, userController.login);
 user_route.post("/login", userController.verifylogin);
 
-user_route.get(
-  "/forgot-password",
-  auth.isLogout,
-  userController.forgotPassword
-);
+user_route.get("/forgot-password",auth.isLogout,userController.forgotPassword);
 user_route.post("/forgot-password", userController.updatePassword);
 
 user_route.get("/logout", auth.isLogin, userController.logout);

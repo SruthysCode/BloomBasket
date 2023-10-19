@@ -18,7 +18,7 @@
         for(let i=0;i<product.length; ++i) {%>
 
           <div class="card mt-3" style="width: 19rem; margin:4px ;">
-            <img src="/static/productimages/<%= product[i].image[0] %>" class="card-img-top" style="height: 20rem;"
+            <img src="/static/productimages/<%= product[i].image[0] %>" class="card-img-top" style="max-height: 20rem; max-width: 100%; "
               alt="<%= product[i].name %>" />
             <div class="card-body">
               <h5 class="card-title">
